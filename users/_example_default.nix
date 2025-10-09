@@ -5,6 +5,6 @@
 {
   imports = [
     ./dshore.nix
-    ./senna.nix
+    # ./senna.nix
   ];
 }
