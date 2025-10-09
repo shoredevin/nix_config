@@ -110,7 +110,7 @@
   users.users.senna = {
     isNormalUser = true;
     description = "Senna Shore";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" ];
   };
     
   home-manager.users.dshore = { pkgs, ... }: {
