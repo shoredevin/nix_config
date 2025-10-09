@@ -11,6 +11,7 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       <home-manager/nixos>
+      ./users
     ];
 
   # Bootloader.
@@ -86,32 +87,6 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.dshore = {
-    isNormalUser = true;
-    description = "Devin Shore";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      neovim
-      neofetch
-      atuin
-      git
-      home-manager
-      nomachine-client
-      htop
-      gparted
-      postgresql
-      dbeaver-bin
-      eza
-      fzf
-      spotify-player
-    ];
-  };
-
-  users.users.senna = {
-    isNormalUser = true;
-    description = "Senna Shore";
-    extraGroups = [ "networkmanager" ];
-  };
     
   home-manager.users.dshore = { pkgs, ... }: {
     home.packages = [ pkgs.atool pkgs.httpie ];
