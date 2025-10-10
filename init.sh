@@ -11,3 +11,5 @@ nix-channel --add https://github.com/nix-community/home-manager/archive/release-
 nix-channel --update
 
 sudo nixos-rebuild switch
+
+git clone https://github.com/catppuccin/cosmic-desktop.git ~/Documents/catppuccin
