@@ -11,7 +11,7 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       <home-manager/nixos>
-      ./users
+      /home/dshore/Documents/nix_config/users/default.nix
     ];
 
   # Bootloader.
@@ -108,11 +108,12 @@
     programs.bash = {
       enable = true;
       bashrcExtra = "
-	alias nc='sudo nano /etc/nixos/configuration.nix'
-	alias nr='sudo nixos-rebuild switch'
-	alias ls='eza --icons'
-	alias la='eza -a --icons'
+	    alias nc='sudo nano /etc/nixos/configuration.nix'
+	    alias nr='sudo nixos-rebuild switch'
+	    alias ls='eza --icons'
+	    alias la='eza -a --icons'
         alias ll='eza -a -l -B --icons'
+		alias devin='ll /etc/nixos'
       ";
     };
     programs.starship = {
