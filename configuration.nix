@@ -119,7 +119,7 @@
 	    alias la='eza -a --icons'
             alias ll='eza -a -l -B --icons'
    	    alias devin='ll /etc/nixos'
-	    alias dadad='echo hello'
+	    alias dude='echo hello'
       ";
     };
     programs.starship = {
