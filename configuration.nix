@@ -11,14 +11,18 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       <home-manager/nixos>
-      /home/dshore/Documents/nix_config/users/default.nix
+      /home/dshore/Documents/nix_config/users
     ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.useOSProber = true;
+  # boot.loader.systemd-boot.enable = false;
+  # boot.loader.grub.efiSupport = true;
+  # boot.loader.grub.enable = true;
+  # boot.loader.grub.device = "nodev";
+  # boot.loader.grub.useOSProber = true;
+  
+  boot.loader.systemd-boot.enable = true;  
+  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -112,8 +116,9 @@
 	    alias nr='sudo nixos-rebuild switch'
 	    alias ls='eza --icons'
 	    alias la='eza -a --icons'
-        alias ll='eza -a -l -B --icons'
-		alias devin='ll /etc/nixos'
+            alias ll='eza -a -l -B --icons'
+   	    alias devin='ll /etc/nixos'
+	    alias dadad='echo hello'
       ";
     };
     programs.starship = {
