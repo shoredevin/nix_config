@@ -11,7 +11,7 @@
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
       <home-manager/nixos>
-      /home/dshore/Documents/nix_config/users
+      /etc/nixos/users
     ];
 
   # Bootloader.
@@ -92,6 +92,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  nixpkgs.config.allowUnfree = true;
     
   home-manager.users.dshore = { pkgs, ... }: {
     home.packages = [ pkgs.atool pkgs.httpie ];
@@ -125,7 +126,19 @@
     programs.starship = {
       enable = true;
     };
-
+    nixpkgs.config.allowUnfree = true;
+    programs.vscode = {
+      enable = true;
+      package = pkgs.vscode;
+      profiles.default.extensions = with pkgs.vscode-extensions; [
+        bbenoist.nix
+        ritwickdey.liveserver
+	catppuccin.catppuccin-vsc
+      ];
+      profiles.default.userSettings = {
+	"workbench.colorTheme" = "Catppuccin Mocha";
+      };
+    };
   };
 
   services.postgresql = {
@@ -153,7 +166,6 @@
   };
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -163,6 +175,7 @@
     lutris
     wineWowPackages.waylandFull
     electricsheep
+    # vscode
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];

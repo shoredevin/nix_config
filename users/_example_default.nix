@@ -6,5 +6,6 @@
   imports = [
     ./dshore.nix
     # ./senna.nix
+    # miya.nix
   ];
 }
