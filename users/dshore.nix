@@ -19,6 +19,8 @@
       eza
       fzf
       spotify-player
+	  ranger
+	  feh
     ];
   };
 }
