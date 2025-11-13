@@ -1,5 +1,5 @@
 { config, lib, pkgs, modulesPath, ... }:
     
 {
-  networking.hostName = "office";
+  networking.hostName = "hplaptop";
 }
