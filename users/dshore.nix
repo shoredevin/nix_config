@@ -11,7 +11,6 @@
       atuin
       git
       home-manager
-      nomachine-client
       htop
       gparted
       postgresql
