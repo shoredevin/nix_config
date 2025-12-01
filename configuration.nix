@@ -172,14 +172,13 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     nodejs
-    pgadmin
+    pgadmin4
     lutris
     wineWowPackages.waylandFull
-    electricsheep
     koboldcpp
     uwsm
-    chromium
     melonDS
+    google-chrome
     # vscode
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
