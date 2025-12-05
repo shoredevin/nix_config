@@ -122,6 +122,7 @@
             alias ll='eza -a -l -B --icons'
    	    alias devin='ll /etc/nixos'
 	    alias dude='echo hello'
+	    alias nu='~/Documents/nix_config/update.sh'
       ";
     };
     programs.starship = {
@@ -179,10 +180,12 @@
     uwsm
     melonDS
     google-chrome
+    waydroid
     # vscode
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
