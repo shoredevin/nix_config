@@ -34,8 +34,9 @@ sudo ln -s "$dir/configuration.nix" /etc/nixos/configuration.nix
 sudo ln -s "$dir/users" /etc/nixos
 sudo ln -s "$dir/hostname.nix" /etc/nixos
 
-sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz home-manager
-sudo nix-channel --update
+# sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz home-manager
+# sudo nix-channel --update
+sudo ./update.sh 25.11
 
 sudo nixos-rebuild switch
 
