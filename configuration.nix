@@ -93,7 +93,10 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+
+  };
     
   home-manager.users.dshore = { pkgs, ... }: {
     home.packages = [ pkgs.atool pkgs.httpie ];
@@ -181,6 +184,7 @@
     melonDS
     google-chrome
     waydroid
+    winboat
     # vscode
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
