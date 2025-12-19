@@ -171,7 +171,14 @@
   };
 
   # Install firefox.
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true; 
+    preferences = {
+      "browser.newtabpage.activity-stream.showWeather" = true;
+      "browser.newtabpage.activity-stream.feeds.topsites" = false;
+      "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+    };
+  };
 
   programs.steam.enable = true;
 
