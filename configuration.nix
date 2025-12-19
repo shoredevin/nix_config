@@ -15,6 +15,15 @@
       /etc/nixos/hostname.nix
     ];
 
+
+#  nixpkgs.config = {
+#    allowUnfree = true;
+#    packageOverrides = pkgs: {
+#      unstable = import <nixlegacy> {
+#        config = config.nixpkgs.config;
+#      };
+#    };
+#  };
   # Bootloader.
   boot.loader.systemd-boot.enable = false;
   # boot.loader.grub.efiSupport = true;
@@ -95,7 +104,11 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   nixpkgs.config = {
     allowUnfree = true;
-
+    packageOverrides = pkgs: {
+      nixlegacy = import <nixlegacy> {
+        config = config.nixpkgs.config;
+      };
+    };
   };
     
   home-manager.users.dshore = { pkgs, ... }: {
@@ -179,7 +192,7 @@
     pgadmin4
     lutris
     wineWowPackages.waylandFull
-    koboldcpp
+    nixlegacy.koboldcpp
     uwsm
     melonDS
     google-chrome
