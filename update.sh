@@ -15,4 +15,5 @@ echo "Updating to version: $nversion"
 
 sudo nix-channel --add "https://nixos.org/channels/nixos-$nversion" nixos
 sudo nix-channel --add "https://github.com/nix-community/home-manager/archive/$hversion.tar.gz" home-manager
+sudo nix-channel --add "https://nixos.org/channels/nixos-25.05" nixlegaxy
 sudo nix-channel --update
