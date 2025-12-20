@@ -1,3 +1,5 @@
+#!/bin/bash
+
 dir=$(pwd)
 
 # check if hostname file exists and if not create it
