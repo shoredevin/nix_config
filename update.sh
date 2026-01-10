@@ -1,5 +1,3 @@
-#!/bin/bash
-
 nversion="$1"
 
 if [[ -z "$nversion" ]]; then

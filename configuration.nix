@@ -26,14 +26,16 @@
 #  };
   # Bootloader.
   boot.loader.systemd-boot.enable = false;
-  # boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiSupport = true;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot";  
+  # boot.loader.grub.efiSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
+  # boot.loader.efi.efiSysMountPoint = "/boot/efi";  
  
   # boot.loader.systemd-boot.enable = true;  
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.canTouchEfiVariables = false;
 
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -208,6 +210,7 @@
     google-chrome
     waydroid
     winboat
+    libreoffice
     # vscode
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget

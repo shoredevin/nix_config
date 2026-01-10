@@ -1,5 +1,3 @@
-#!/bin/bash
-
 dir=$(pwd)
 
 # check if hostname file exists and if not create it
@@ -38,7 +36,7 @@ sudo ln -s "$dir/hostname.nix" /etc/nixos
 
 # sudo nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.05.tar.gz home-manager
 # sudo nix-channel --update
-sudo ./update.sh 25.11
+sudo ./update.sh unstable
 
 sudo nixos-rebuild switch
 
