@@ -20,6 +20,7 @@
       spotify-player
 	  ranger
 	  feh
+      nicotine-plus
     ];
   };
 }
