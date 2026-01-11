@@ -134,6 +134,7 @@
   networking.firewall.allowedTCPPorts = [ 
     3000 
     3002
+    4000
     5001 
   ];
 
