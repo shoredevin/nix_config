@@ -10,39 +10,23 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
-      <home-manager/nixos>
+      # <home-manager/nixos>
       /etc/nixos/users
       /etc/nixos/hostname.nix
     ];
 
-
-#  nixpkgs.config = {
-#    allowUnfree = true;
-#    packageOverrides = pkgs: {
-#      unstable = import <nixlegacy> {
-#        config = config.nixpkgs.config;
-#      };
-#    };
-#  };
   # Bootloader.
-  boot.loader.systemd-boot.enable = false;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.useOSProber = true;
-  # boot.loader.grub.efiSupport = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
-  # boot.loader.efi.efiSysMountPoint = "/boot/efi";  
- 
-  # boot.loader.systemd-boot.enable = true;  
-  boot.loader.efi.canTouchEfiVariables = false;
-
-  # networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  boot.loader = {
+    systemd-boot.enable = false;
+    grub = {
+      enable = true;
+      device = "nodev";
+      useOSProber = true;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+    };
+    efi.canTouchEfiVariables = false;
+  };
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -52,7 +36,6 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";
     LC_IDENTIFICATION = "en_US.UTF-8";
@@ -68,10 +51,12 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.excludePackages = [ pkgs.xterm ];
+
   # Enable the GNOME Desktop Environment.
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
-
+  
+  # Enable the Cosmic Desktop Enviroment.
   services.displayManager.cosmic-greeter.enable = true;
   services.desktopManager.cosmic.enable = true;
 
@@ -103,7 +88,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   nixpkgs.config = {
     allowUnfree = true;
     packageOverrides = pkgs: {
@@ -112,66 +96,7 @@
       };
     };
   };
-    
-  home-manager.users.dshore = { pkgs, ... }: {
-    home.packages = [ pkgs.atool pkgs.httpie ];
-    home.stateVersion = "25.05";
-    home.file.".nanorc".text = "
-	set linenumbers
-        set tabsize 4
-        set titlecolor white,black
-        set numbercolor white,black
-    ";
-    programs.atuin = {
-      enable = true;
-      settings = {
-        auto_sync = true;
-	enter_accept = true;
-	records = true;
-      };
-    };
-    programs.bash = {
-      enable = true;
-      bashrcExtra = "
-	    alias nc='sudo nano /etc/nixos/configuration.nix'
-	    alias nr='sudo nixos-rebuild switch'
-	    alias ls='eza --icons'
-	    alias la='eza -a --icons'
-            alias ll='eza -a -l -B --icons'
-   	    alias devin='ll /etc/nixos'
-	    alias dude='echo hello'
-	    alias nu='~/Documents/nix_config/update.sh'
-      ";
-    };
-    programs.starship = {
-      enable = true;
-    };
-    nixpkgs.config.allowUnfree = true;
-    programs.vscode = {
-      enable = true;
-      package = pkgs.vscode;
-      profiles.default.extensions = with pkgs.vscode-extensions; [
-        bbenoist.nix
-        ritwickdey.liveserver
-	catppuccin.catppuccin-vsc
-      ];
-      profiles.default.userSettings = {
-	"workbench.colorTheme" = "Catppuccin Mocha";
-      };
-    };
-  };
-
-  services.postgresql = {
-    enable = true;
-    ensureDatabases = [ "mydatabase" ];    
-    authentication = pkgs.lib.mkOverride 10 ''
-	#type    database    DBuser    origin-address	  auth-method
-        local    all         all       			  trust
-	host     all         all       127.0.0.1/32       trust
-	host     all         all       ::1/128            trust
-    '';
-  };
-
+  
   # Install firefox.
   programs.firefox = {
     enable = true; 
@@ -187,45 +112,17 @@
 
   programs.steam.enable = true;
 
-  programs.tmux = {
-    enable = true;
-    clock24 = true;
-    extraConfig = "
-
-    ";
-  };
-
-  # Allow unfree packages
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    nodejs
-    pgadmin4
+    git
     lutris
-    wineWowPackages.waylandFull
     nixlegacy.koboldcpp
-    uwsm
     melonDS
-    google-chrome
-    waydroid
     winboat
     libreoffice
-    # vscode
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    nomachine-client
   ];
-
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
   services.openssh = {
@@ -235,10 +132,11 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 
-	3000 
-	3002
-	5001 
+    3000 
+    3002
+    5001 
   ];
+
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
