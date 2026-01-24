@@ -122,6 +122,7 @@
     winboat
     libreoffice
     nomachine-client
+    linux-wifi-hotspot
   ];
 
   # Enable the OpenSSH daemon.

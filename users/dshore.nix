@@ -61,7 +61,9 @@ home-manager.users.dshore = { pkgs, ... }: {
       enable = true;
       clock24 = true;
       extraConfig = "
-      
+	    set -g base-index 1
+		setw -g pane-base-index 1
+		set -g renumber-windows on      
       ";
     };
     programs.starship = {
@@ -77,7 +79,8 @@ home-manager.users.dshore = { pkgs, ... }: {
 	    catppuccin.catppuccin-vsc
       ];
       profiles.default.userSettings = {
-	"workbench.colorTheme" = "Catppuccin Mocha";
+		"workbench.colorTheme" = "Catppuccin Mocha";
+        "workbench.startupEditor" = "none";
       };
     };
   };
