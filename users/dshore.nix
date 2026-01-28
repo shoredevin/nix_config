@@ -36,6 +36,8 @@ home-manager.users.dshore = { pkgs, ... }: {
         set titlecolor white,black
         set numbercolor white,black
     ";
+   home.file.".tmux.conf".text = ''
+	'';
     programs.atuin = {
       enable = true;
       settings = {
@@ -51,7 +53,7 @@ home-manager.users.dshore = { pkgs, ... }: {
 	    alias nr='sudo nixos-rebuild switch'
 	    alias ls='eza --icons'
 	    alias la='eza -a --icons'
-            alias ll='eza -a -l -B --icons'
+        alias ll='eza -a -l -B --icons'
    	    alias devin='ll /etc/nixos'
 	    alias dude='echo hello'
 	    alias nu='~/Documents/nix_config/update.sh'
@@ -60,11 +62,7 @@ home-manager.users.dshore = { pkgs, ... }: {
     programs.tmux = {
       enable = true;
       clock24 = true;
-      extraConfig = "
-	    set -g base-index 1
-		setw -g pane-base-index 1
-		set -g renumber-windows on      
-      ";
+	  baseIndex = 1;
     };
     programs.starship = {
       enable = true;
