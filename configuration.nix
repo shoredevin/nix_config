@@ -74,8 +74,20 @@
   };
 
   # Enable CUPS to print documents.
-  services.printing.enable = true;
+  # services.printing.enable = true;
+services.avahi = {
+  enable = true;
+  nssmdns4 = true;
+  openFirewall = true;
+};
 
+services.printing = {
+  enable = true;
+  drivers = with pkgs; [
+    cups-filters
+    cups-browsed
+  ];
+};
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -129,7 +141,7 @@
     winboat
     libreoffice
     nomachine-client
-    linux-wifi-hotspot
+    vlc
   ];
 
   # Enable the OpenSSH daemon.
