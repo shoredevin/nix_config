@@ -13,6 +13,7 @@
       # <home-manager/nixos>
       /etc/nixos/users
       /etc/nixos/hostname.nix
+      /etc/nixos/local
     ];
 
   # Bootloader.

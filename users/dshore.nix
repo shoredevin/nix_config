@@ -10,8 +10,7 @@
     description = "Devin Shore";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-	  neovim
-	  neofetch
+      neovim
       atuin
       home-manager
       htop
