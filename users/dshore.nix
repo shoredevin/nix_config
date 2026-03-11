@@ -11,7 +11,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
 	  neovim
-	  neofetch
+      fastfetch
       atuin
       home-manager
       htop
