@@ -24,9 +24,10 @@
       device = "nodev";
       useOSProber = true;
       efiSupport = true;
-      efiInstallAsRemovable = true;
+      # efiInstallAsRemovable = false;
     };
-    efi.canTouchEfiVariables = false;
+    efi.canTouchEfiVariables = true;
+    efi.efiSysMountPoint = "/boot";
   };
 
   # Enable networking
