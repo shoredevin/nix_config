@@ -152,6 +152,7 @@ services.printing = {
     libreoffice
     nomachine-client
     vlc
+    tree
   ];
 
   # Enable the OpenSSH daemon.

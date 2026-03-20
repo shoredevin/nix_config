@@ -14,22 +14,23 @@
     let
       shared-modules = [
         ./configuration.nix
-        ./users
-        ./hostname.nix
-        home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.dshore = import ./users/home.nix;
-          }
+        # ./users
+        # ./hostname.nix
+        home-manager.nixosModules.home-manager {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.dshore = import ./users/dshore_home.nix;
+        }
       ];
     in {
       nixosConfigurations = {
         office = nixpkgs.lib.nixosSystem {
-	  # system = "x86_64-linux";
+	      # system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = shared-modules ++ [ 
             ./local/office.nix
+			./users/dshore.nix
+            { networking.hostName = "office"; }
           ];
         };
       };  
