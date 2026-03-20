@@ -24,8 +24,8 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      nc = "sudo nano /etc/nixos/configuration.nix";
-      nr = "sudo nixos-rebuild switch";
+      nc = "sudo nano ~/Documents/nix_config/configuration.nix";
+      nr = "sudo nixos-rebuild switch --flake ~/Documents/nix_config#office";
       ls = "eza --icons";
       la = "eza -a --icons";
       ll = "eza -a -l -B --icons";

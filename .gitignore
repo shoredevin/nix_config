@@ -1,3 +1,2 @@
-default.nix
 hostname.nix
-local/
+hardware-configuration.nix
