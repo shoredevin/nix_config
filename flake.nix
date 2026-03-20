@@ -39,6 +39,13 @@
 		    { networking.hostName = "thinkpad"; }
 		  ];
 		};
+		hplaptop = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+	      modules = shared-modules ++ [
+		    ./users/dshore.nix
+			{ networking.hostName = "hplaptop"; }
+ 		  ];
+	    };
       };  
     };  
 }
