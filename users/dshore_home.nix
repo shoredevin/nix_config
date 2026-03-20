@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
-  home.username = "dshore";
-  home.homeDirectory = "/home/dshore";
+{ pkgs, lib, ... }: {
+  home.username =  "dshore";
+  home.homeDirectory = lib.mkForce "/home/dshore";
   home.stateVersion = "25.05"; # Keep this as a number!
 
   home.packages = [ pkgs.atool pkgs.httpie pkgs.eza ]; # Added eza since you use it in aliases
@@ -24,8 +24,8 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      nc = "sudo nano ~/Documents/nix_config/configuration.nix";
-      nr = "sudo ~/Documents/nix_config/updateFlake.sh";
+      nc = "nano ~/Documents/nix_config/configuration.nix";
+      nr = "~/Documents/nix_config/updateFlake.sh";
       ls = "eza --icons";
       la = "eza -a --icons";
       ll = "eza -a -l -B --icons";
