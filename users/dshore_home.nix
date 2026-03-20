@@ -25,7 +25,7 @@
     enable = true;
     shellAliases = {
       nc = "sudo nano ~/Documents/nix_config/configuration.nix";
-      nr = "sudo nixos-rebuild switch --flake ~/Documents/nix_config#office";
+      nr = "sudo ~/Documents/nix_config/updateFlake.sh";
       ls = "eza --icons";
       la = "eza -a --icons";
       ll = "eza -a -l -B --icons";
