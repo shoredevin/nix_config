@@ -14,8 +14,6 @@
     let
       shared-modules = [
         ./configuration.nix
-        # ./users
-        # ./hostname.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
@@ -33,6 +31,10 @@
             { networking.hostName = "office"; }
           ];
         };
+		thinkpad = nixpkgs.lib.nixosSystem {
+		  specialArgs = { inherit inputs; };
+     	  modules = shared-modules + [{ neworking.hostname = "thinkpad"; }];
+		};
       };  
     };  
 }
