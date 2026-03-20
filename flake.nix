@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     nixpkgs-legacy.url = "github:nixos/nixpkgs/nixos-25.05";
     home-manager = { 
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -14,7 +14,8 @@
     let
       shared-modules = [
         ./configuration.nix
-        home-manager.nixosModules.home-manager {
+        home-manager.nixosModules.home-manager 
+        {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.dshore = import ./users/dshore_home.nix;
@@ -33,7 +34,10 @@
         };
 		thinkpad = nixpkgs.lib.nixosSystem {
 		  specialArgs = { inherit inputs; };
-     	  modules = shared-modules + [{ neworking.hostname = "thinkpad"; }];
+     	  modules = shared-modules ++ [
+			./users/dshore.nix
+		    { networking.hostName = "thinkpad"; }
+		  ];
 		};
       };  
     };  
