@@ -24,30 +24,36 @@
     in {
       nixosConfigurations = {
         office = nixpkgs.lib.nixosSystem {
-	      # system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = shared-modules ++ [ 
             ./local/office.nix
-			./users/dshore.nix
+			      ./users/dshore.nix
             { networking.hostName = "office"; }
           ];
         };
-		thinkpad = nixpkgs.lib.nixosSystem {
-		  specialArgs = { inherit inputs; };
-     	  modules = shared-modules ++ [
-			./users/dshore.nix
-			./users/senna.nix
-			./users/miya.nix
-		    { networking.hostName = "thinkpad"; }
-		  ];
-		};
-		hplaptop = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-	      modules = shared-modules ++ [
-		    ./users/dshore.nix
-			{ networking.hostName = "hplaptop"; }
- 		  ];
-	    };
-      };  
+      thinkpad = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = shared-modules ++ [
+          ./users/dshore.nix
+          ./users/senna.nix
+          ./users/miya.nix
+          { networking.hostName = "thinkpad"; }
+        ];
+      };
+      hplaptop = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = shared-modules ++ [
+          ./users/dshore.nix
+          { networking.hostName = "hplaptop"; }
+        ];
+      };
+      livingroom = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = shared-modules ++ [
+          ./users/dshore.nix
+          { networking.hostName = "livingroom"; }
+        ];
+      };
     };  
+  };  
 }
