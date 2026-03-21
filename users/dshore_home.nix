@@ -1,7 +1,7 @@
 { pkgs, lib, ... }: {
   home.username =  "dshore";
-  home.homeDirectory = lib.mkForce "/home/dshore";
-  home.stateVersion = "25.05"; # Keep this as a number!
+  home.homeDirectory = "/home/dshore";
+  home.stateVersion = "25.05";
 
   home.packages = [ pkgs.atool pkgs.httpie pkgs.eza ]; # Added eza since you use it in aliases
 
