@@ -36,6 +36,8 @@
 		  specialArgs = { inherit inputs; };
      	  modules = shared-modules ++ [
 			./users/dshore.nix
+			./users/senna.nix
+			./users/miya.nix
 		    { networking.hostName = "thinkpad"; }
 		  ];
 		};
