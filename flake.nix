@@ -14,6 +14,7 @@
     let
       shared-modules = [
         ./configuration.nix
+		./users/dshore.nix
         home-manager.nixosModules.home-manager 
         {
           home-manager.useGlobalPkgs = true;
@@ -21,38 +22,34 @@
           home-manager.users.dshore = import ./users/dshore_home.nix;
         }
       ];
+	  girls = [
+        ./users/senna.nix
+		./users/miya.nix
+      ];
     in {
       nixosConfigurations = {
         office = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = shared-modules ++ [ 
             ./local/office.nix
-			      ./users/dshore.nix
-            { networking.hostName = "office"; }
+			{ networking.hostName = "office"; }
           ];
         };
       thinkpad = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = shared-modules ++ [
-          ./users/dshore.nix
-          ./users/senna.nix
-          ./users/miya.nix
+        modules = shared-modules ++ girls ++ [
           { networking.hostName = "thinkpad"; }
         ];
       };
       hplaptop = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
         modules = shared-modules ++ [
-          ./users/dshore.nix
           { networking.hostName = "hplaptop"; }
         ];
       };
       livingroom = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs; };
-        modules = shared-modules ++ [
-          ./users/dshore.nix
-		  ./users/senna.nix
-		  ./users/miya.nix
+        modules = shared-modules ++ girls ++ [
           { networking.hostName = "livingroom"; }
         ];
       };
