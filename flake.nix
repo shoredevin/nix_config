@@ -19,7 +19,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.dshore = import ./users/dshore_home.nix;
+          home-manager.users.dshore = import ./home/dshore_home.nix;
         }
       ];
 	  girls = [
