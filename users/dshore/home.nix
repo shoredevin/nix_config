@@ -28,7 +28,7 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      nc = "nano ~/Documents/nix_config/configuration.nix";
+      nc = "~/Documents/nix_config/config.sh";
       nr = "~/Documents/nix_config/updateFlake.sh";
       ls = "eza --icons";
       la = "eza -a --icons";
