@@ -12,6 +12,10 @@
     set numbercolor white,black
   '';
 
+  home.file.".inputrc".text = ''
+	set completion-ignore-case On
+  '';
+
   programs.atuin = {
     enable = true;
     settings = {

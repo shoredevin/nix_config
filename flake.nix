@@ -14,30 +14,30 @@
     let
       shared-modules = [
         ./configuration.nix
-		./users/dshore.nix
+		./users/dshore/default.nix
         home-manager.nixosModules.home-manager 
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.dshore = import ./home/dshore_home.nix;
+          home-manager.users.dshore = import ./users/dshore/home.nix;
         }
       ];
 	  girls = [
-        ./users/senna.nix
-		./users/miya.nix
+        ./users/senna/default.nix
+		./users/miya/default.nix
       ];
     in {
       nixosConfigurations = {
         office = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
-          modules = shared-modules ++ [ 
-            ./local/office.nix
+          modules = shared-modules ++ girls ++ [ 
+            ./hosts/office/default.nix
 
          home-manager.nixosModules.home-manager
          {
            home-manager.useGlobalPkgs = true;
            home-manager.useUserPackages = true;
-           home-manager.users.dshore = import ./home/dshore_office_home.nix;
+           home-manager.users.dshore = import ./users/dshore/office_home.nix;
          }
 			{ networking.hostName = "office"; }
           ];
