@@ -32,6 +32,13 @@
           specialArgs = { inherit inputs; };
           modules = shared-modules ++ [ 
             ./local/office.nix
+
+         home-manager.nixosModules.home-manager
+         {
+           home-manager.useGlobalPkgs = true;
+           home-manager.useUserPackages = true;
+           home-manager.users.dshore = import ./home/dshore_office_home.nix;
+         }
 			{ networking.hostName = "office"; }
           ];
         };
