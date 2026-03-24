@@ -66,12 +66,12 @@ in
   # services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
   
-  services.gnome.gnome-keyring.enable = true;
+  # services.gnome.gnome-keyring.enable = true;
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
+  #programs.sway = {
+  #  enable = true;
+  #  wrapperFeatures.gtk = true;
+  #};
 
   # Enable the Cosmic Desktop Enviroment.
   services.displayManager.cosmic-greeter.enable = true;
@@ -153,6 +153,7 @@ services.printing = {
     nomachine-client
     vlc
     tree
+    google-chrome
   ];
 
   # Enable the OpenSSH daemon.
