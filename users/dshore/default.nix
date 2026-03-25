@@ -8,7 +8,7 @@
   users.users.dshore = {
     isNormalUser = true;
     description = "Devin Shore";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       neovim
       fastfetch
@@ -25,9 +25,11 @@
       nodejs
       # pgadmin4
       wireshark
+      docker
+      docker-compose
     ];
   };
-
+  virtualisation.docker.enable = true;
   services.postgresql = {
     enable = true;
     ensureDatabases = [ "mydatabase" ];    
