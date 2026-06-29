@@ -8,4 +8,5 @@ fi
 
 # echo "hostname: $hostname"
 
+sudo nix flake update
 sudo nixos-rebuild switch --impure --flake ~/Documents/nix_config#$hostname
