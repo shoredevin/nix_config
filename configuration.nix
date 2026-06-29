@@ -154,6 +154,8 @@ services.printing = {
     vlc
     tree
     google-chrome
+	rustdesk
+	rustdesk-server
   ];
 
   # Enable the OpenSSH daemon.
