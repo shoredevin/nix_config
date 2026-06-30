@@ -146,7 +146,6 @@ services.printing = {
   environment.systemPackages = with pkgs; [
     git
     lutris
-    nixlegacy.koboldcpp
     melonDS
     winboat
     libreoffice
