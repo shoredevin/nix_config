@@ -27,6 +27,8 @@
       wireshark
       docker
       docker-compose
+	  mame
+	  ppsspp	  
     ];
   };
   virtualisation.docker.enable = true;
