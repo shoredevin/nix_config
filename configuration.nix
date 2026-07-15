@@ -26,16 +26,19 @@ in
 
   # Bootloader
   boot.loader = {
-    systemd-boot.enable = false;
-    grub = {
-      enable = true;
-      device = "nodev";
-      useOSProber = true;
-      efiSupport = true;
+    systemd-boot.enable = true;
+	systemd-boot.configurationLimit = 10;
+	grub.enable = false;
+	efi.canTouchEfiVariables = true;
+    #grub = {
+    #  enable = true;
+    #  device = "nodev";
+    #  useOSProber = true;
+    #  efiSupport = true;
       # efiInstallAsRemovable = false;
-    };
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/boot";
+    # };
+    #efi.canTouchEfiVariables = true;
+    #efi.efiSysMountPoint = "/boot";
   };
 
   # Enable networking
@@ -153,8 +156,7 @@ services.printing = {
     vlc
     tree
     google-chrome
-	rustdesk
-	rustdesk-server
+	nixlegacy.handbrake
   ];
 
   # Enable the OpenSSH daemon.

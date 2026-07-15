@@ -35,7 +35,7 @@
       ll = "eza -a -l -B --icons";
       devin = "ll /etc/nixos";
       dude = "echo hello";
-      nu = "~/Documents/nix_config/update.sh";
+      nu = "~/Documents/nix_config/updateFlake.sh -u";
     };
   };
 

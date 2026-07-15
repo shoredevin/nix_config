@@ -1,12 +1,16 @@
-# echo $1
 
 if [ -z "$1" ]; then
   hostname=$(hostname)
 else
-  hostname=$1
+  if [ "$1" = "-u" ]; then
+  	hostname=$(hostname)
+  else
+    hostname=$1
+  fi
 fi
 
-# echo "hostname: $hostname"
+if [[ "$1" = "-u" || "$2" = "-u" ]]; then
+  sudo nix flake update
+fi
 
-sudo nix flake update
 sudo nixos-rebuild switch --impure --flake ~/Documents/nix_config#$hostname

@@ -28,7 +28,8 @@
       docker
       docker-compose
 	  mame
-	  ppsspp	  
+	  ppsspp
+	  gopher64
     ];
   };
   virtualisation.docker.enable = true;
