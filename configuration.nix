@@ -155,10 +155,7 @@ services.printing = {
   environment.systemPackages = with pkgs; [
     git
     lutris
-    melonDS
-    winboat
     libreoffice
-    nomachine-client
     vlc
     tree
     google-chrome

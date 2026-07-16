@@ -30,6 +30,7 @@
 	  mame
 	  ppsspp
 	  gopher64
+	  melonds
     ];
   };
   virtualisation.docker.enable = true;
