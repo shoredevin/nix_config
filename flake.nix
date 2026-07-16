@@ -60,6 +60,13 @@
           { networking.hostName = "livingroom"; }
         ];
       };
+      jellyfin = nixpkgs.lib.nixosSystem {
+	    specialArgs = { inherit inputs; };
+	    modules = shared-modules ++ [
+		  ./hosts/jellyfin/default.nix
+	      { networking.hostName = "jellyfin"; }
+	    ];
+      };
     };  
   };  
 }
