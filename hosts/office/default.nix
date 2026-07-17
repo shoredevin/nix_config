@@ -4,6 +4,9 @@
   systemd.services.systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
   hardware.graphics = { 
 	enable = true; 
+	extraPackages = with pkgs; [
+	  intel-media-driver
+    ];
   };
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia = {
