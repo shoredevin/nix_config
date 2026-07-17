@@ -31,6 +31,7 @@
 	  ppsspp
 	  gopher64
 	  melonds
+	  moonlight-qt
     ];
   };
   virtualisation.docker.enable = true;

@@ -30,7 +30,7 @@
 
         office = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
-          modules = shared-modules ++ girls ++ [ 
+          modules = shared-modules ++ [ 
             ./hosts/office/default.nix
 			      home-manager.nixosModules.home-manager {
 	            home-manager.useGlobalPkgs = true;
