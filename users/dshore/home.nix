@@ -16,6 +16,7 @@
 	set completion-ignore-case On
   '';
 
+
   programs.atuin = {
     enable = true;
     settings = {
