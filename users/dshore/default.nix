@@ -32,6 +32,8 @@
 	  gopher64
 	  melonds
 	  moonlight-qt
+	  postman
+androidStudioPackages.stable	  
     ];
   };
   virtualisation.docker.enable = true;

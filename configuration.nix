@@ -49,7 +49,9 @@ in
 
   # Enable networking
   networking.networkmanager.enable = true;
-
+  networking.extraHosts = ''
+	127.0.0.1 tv.testinglocal.com
+  '';
   # Set your time zone.
   time.timeZone = "America/New_York";
 
