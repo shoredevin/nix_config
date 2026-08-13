@@ -48,9 +48,10 @@
           ];
         };
         
-        hplaptop = nixpkgs.lib.nixosSystem {
+        thunkpad = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = shared-modules ++ [
+			.host/thunkpad/default.nix
             { networking.hostName = "hplaptop"; }
           ];
         };
