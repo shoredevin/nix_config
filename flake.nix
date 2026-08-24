@@ -44,6 +44,7 @@
         thinkpad = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = shared-modules ++ girls ++ [
+            ./hosts/thinkpad/default.nix
             { networking.hostName = "thinkpad"; }
           ];
         };
