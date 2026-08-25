@@ -2,7 +2,7 @@
 
 { 
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    ./hardware-configuration.nix
     ../../modules/core/desktop.nix
     ../../modules/apps/dev.nix
   ];
