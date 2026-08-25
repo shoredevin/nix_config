@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulePath, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   users.users.senna = {
@@ -7,7 +7,7 @@
     extraGroups = [ "networkmanager" ];
     initialPassword = "senna";
     packages = with pkgs; [
-        neovim
-      ];
-    };
+
+    ];
+  };
 }
