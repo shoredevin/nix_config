@@ -5,6 +5,7 @@
     ./hardware-configuration.nix
     ../../modules/core/desktop.nix
     ../../modules/apps/dev.nix
+	../../modules/apps/vm.nix
 	../../users/miya/default.nix
   ];
 
