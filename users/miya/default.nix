@@ -1,4 +1,4 @@
-{ config, lib, pkgs, modulePath, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   users.users.miya = {
@@ -7,7 +7,7 @@
     extraGroups = [ "networkmanager" ];
     initialPassword = "miya";
     packages = with pkgs; [
-        neovim
-      ];
-    };
+
+    ];
+  };
 }
