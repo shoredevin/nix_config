@@ -3,8 +3,8 @@
 {
   system.autoUpgrade = {
     enable = true;
-    dates = "daily";
-    randomizedDelaySec = "45min";
+    dates = "minutely";
+    # randomizedDelaySec = "45min";
     flake = "git+ssh://git@://github.com:shoredevin/nix_config.git";
     operation = "boot";
   };
