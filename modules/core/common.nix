@@ -28,15 +28,10 @@
   environment.systemPackages = with pkgs; [
     git
     neovim
-    # atuin
     htop
     fastfetch
     tree
   ];
-
-  # programs.bash.interactiveShellInit = ''
-  #   eval "$(atuin init bash)"
-  # '';
   
   networking.networkmanager.enable = true;
   services.openssh = {
