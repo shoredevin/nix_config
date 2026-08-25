@@ -3,8 +3,10 @@
   home.homeDirectory = "/home/dshore";
   home.stateVersion = "25.05";
 
-  home.packages = [ pkgs.atool pkgs.httpie pkgs.eza ]; # Added eza since you use it in aliases
-
+  home.packages = with pkgs; [ 
+    eza 
+  ];
+  
   home.file.".nanorc".text = ''
     set linenumbers
     set tabsize 4
@@ -12,13 +14,16 @@
     set numbercolor white,black
   '';
 
-  home.file.".inputrc".text = ''
-	set completion-ignore-case On
-  '';
-
+  programs.readline = {
+    enable = true;
+    variables = {
+      completion-ignore-case = "on";
+    };
+  };
 
   programs.atuin = {
     enable = true;
+    # enableBashIntegration = false;
     settings = {
       auto_sync = true;
       enter_accept = true;
@@ -50,14 +55,16 @@
 
   programs.vscode = {
     enable = true;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      bbenoist.nix
-      ritwickdey.liveserver
-      catppuccin.catppuccin-vsc
-    ];
-    profiles.default.userSettings = {
-      "workbench.colorTheme" = "Catppuccin Mocha";
-      "workbench.startupEditor" = "none";
+    profiles.default = {
+      extensions = with pkgs.vscode-extensions; [
+        bbenoist.nix
+        ritwickdey.liveserver
+        catppuccin.catppuccin-vsc
+      ];
+      userSettings = {
+        "workbench.colorTheme" = "Catppuccin Mocha";
+        "workbench.startupEditor" = "none";
+      };
     };
   };
 }

@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 { 
+  imports = [
+	/etc/nixos/hardware-configuration.nix
+	../../modules/core/desktop.nix
+	../../modules/apps/dev.nix
+  ];
+
   boot.blacklistedKernelModules = [ "raydium_i2c_ts" ];
 
   services.power-profiles-daemon.enable = false;
