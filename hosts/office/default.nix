@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 { 
+  imports = [
+    /etc/nixos/hardware-configuration.nix
+    ../../modules/core/desktop.nix
+    ../../modules/apps/dev.nix
+  ];
+
   systemd.services.systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
   hardware.graphics = { 
 	enable = true; 
