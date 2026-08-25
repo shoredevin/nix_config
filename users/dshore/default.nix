@@ -1,10 +1,6 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [
-    # <home-manager/nixos>
-  ];
-
   users.users.dshore = {
     isNormalUser = true;
     description = "Devin Shore";
@@ -14,4 +10,6 @@
       "docker" 
     ];
   };
+
+  home-manager.users.dshore = import ./home.nix;
 }
