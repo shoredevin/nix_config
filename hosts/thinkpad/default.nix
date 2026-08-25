@@ -1,6 +1,13 @@
 { config, pkgs, ... }:
 
 { 
+    imports = [
+        /etc/nixos/hardware-configuration.nix
+        ../../modules/core/desktop.nix
+        ../../users/miya/default.nix
+        ../../users/senna/default.nix
+    ];
+
     boot.blacklistedKernelModules = [ "raydium_i2c_ts" ];
 
     services.power-profiles-daemon.enable = false;
@@ -15,7 +22,4 @@
         };
     };
     services.thermald.enable = true;
-    environment.systemPackages = with pkgs; [
-        btop
-    ];
 }
