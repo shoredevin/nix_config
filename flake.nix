@@ -12,8 +12,12 @@
 
   outputs = { self, nixpkgs, nixpkgs-legacy, home-manager } @inputs:
     let
+      system = "x86_64-linux";
+
       shared-modules = [
-        ./configuration.nix
+        ./modules/core/common.nix
+        ./modules/core/boot.nix
+        ./modules/apps/firefox.nix
 		    ./users/dshore/default.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
@@ -21,56 +25,22 @@
           home-manager.users.dshore = import ./users/dshore/home.nix;
         }
       ];
-	  girls = [
-      ./users/senna/default.nix
-		  ./users/miya/default.nix
-    ];
+      
+      mkHost = hostName: extraModules: nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs; };
+        modules = shared-modules ++ [
+          ./hosts/${hostName}/default.nix
+          { networking.hostName = hostName; }
+        ] ++ extraModules;
+      };
     in {
       nixosConfigurations = {
-
-        office = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = shared-modules ++ [ 
-            ./hosts/office/default.nix
-			      home-manager.nixosModules.home-manager {
-	            home-manager.useGlobalPkgs = true;
-	            home-manager.useUserPackages = true;
-	            home-manager.users.dshore = import ./users/dshore/office_home.nix;
-	          }
-			      { networking.hostName = "office"; }
-          ];
-        };
-      	
-        thinkpad = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = shared-modules ++ girls ++ [
-            ./hosts/thinkpad/default.nix
-            { networking.hostName = "thinkpad"; }
-          ];
-        };
-        
-        thunkpad = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = shared-modules ++ [
-			./hosts/thunkpad/default.nix
-            { networking.hostName = "thunkpad"; }
-          ];
-        };
-  		  
-        livingroom = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = shared-modules ++ girls ++ [
-            { networking.hostName = "livingroom"; }
-          ];
-        };
-        
-        jellyfin = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = shared-modules ++ [
-          ./hosts/jellyfin/default.nix
-            { networking.hostName = "jellyfin"; }
-          ];
-        };
+        office     = mkHost "office" [ ];
+        thinkpad   = mkHost "thinkpad" [ ];
+        thunkpad   = mkHost "thunkpad" [ ];
+        livingroom = mkHost "livingroom" [ ];
+        jellyfin   = mkHost "jellyfin" [ ];
       };  
     };  
 }
