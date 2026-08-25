@@ -5,7 +5,10 @@
     ./hardware-configuration.nix
     ../../modules/core/desktop.nix
     ../../modules/apps/dev.nix
+	../../users/miya/default.nix
   ];
+
+  modules.dev.enable = true;
 
   systemd.services.systemd-suspend.environment.SYSTEMD_SLEEP_FREEZE_USER_SESSIONS = "false";
   hardware.graphics = { 
