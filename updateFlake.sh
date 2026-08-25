@@ -13,4 +13,4 @@ if [[ "$1" = "-u" || "$2" = "-u" ]]; then
   sudo nix flake update
 fi
 
-sudo nixos-rebuild switch --impure --flake ~/Documents/nix_config#$hostname
+sudo nixos-rebuild switch --flake ~/Documents/nix_config#$hostname
