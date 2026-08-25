@@ -18,7 +18,7 @@
         ./modules/core/common.nix
         ./modules/core/boot.nix
         ./modules/apps/firefox.nix
-		    ./users/dshore/default.nix
+	    ./users/dshore/default.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
