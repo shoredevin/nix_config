@@ -22,7 +22,7 @@
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.dshore = import ./users/dshore/home.nix;
+          # home-manager.users.dshore = import ./users/dshore/home.nix;
         }
       ];
       
