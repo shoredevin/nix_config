@@ -7,6 +7,8 @@
 	../../modules/apps/dev.nix
   ];
 
+  modules.dev.enable = true;
+
   boot.blacklistedKernelModules = [ "raydium_i2c_ts" ];
 
   services.power-profiles-daemon.enable = false;
