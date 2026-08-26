@@ -1,11 +1,16 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Declaratively ensure /root/.ssh exists on boot for bind mounts
-  systemd.tmpfiles.rules = [
-    "d /root/.ssh 0700 root root - -"
-  ];
+  sops.secrets.deploy_ssh_key = {
+    mode = "0400";
+    owner = "root";
+  };
 
+  sops.secrets.ntfy_env = {
+    mode = "0400";
+    owner = "root";
+  };
+ 
   system.autoUpgrade = {
     enable = true;
     dates = "00:00";
@@ -20,16 +25,12 @@
 
     serviceConfig = {
       # Load credentials into service
-      EnvironmentFile = "/etc/nixos/ntfy-auth.env";
-      
-      BindReadOnlyPaths = [
-        "/home/dshore/.ssh:/root/.ssh"
+	  EnvironmentFile = config.sops.secrets.ntfy_env.path;
+    
+	  Environment = [
+        "GIT_SSH_COMMAND=${pkgs.openssh}/bin/ssh -i ${config.sops.secrets.deploy_ssh_key.path} -o StrictHostKeyChecking=accept-new"
       ];
-
-      Environment = [
-        "GIT_SSH_COMMAND=${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=accept-new"
-      ];
-      
+  
       ExecStartPost = pkgs.writeShellScript "ntfy-success-hook" ''
         ${pkgs.curl}/bin/curl -s \
           -H "''$NTFY_AUTH_HEADER" \
@@ -46,12 +47,12 @@
     
     serviceConfig = {
       Type = "oneshot";
-      EnvironmentFile = "/etc/nixos/ntfy-auth.env";
-    };
+      EnvironmentFile = config.sops.secrets.ntfy_env.path;
+	};
 
     script = ''
       ${pkgs.curl}/bin/curl -s \
-        -H "$NTFY_AUTH_HEADER" \
+        -H "''$NTFY_AUTH_HEADER" \
         -H "Title: NixOS Upgrade FAILED" \
         -H "Priority: high" \
         -d "Background upgrade failed on ${config.networking.hostName}. Check 'journalctl -u nixos-upgrade'." \
