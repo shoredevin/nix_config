@@ -46,6 +46,9 @@
 
   programs.bash = {
     enable = true;
+	sessionVariables = {
+      SOPS_AGE_KEY_FILE = "$HOME/.config/sops/age/keys.txt";
+    };
     shellAliases = {
       nc = "~/Documents/nix_config/config.sh";
       nr = "~/Documents/nix_config/updateFlake.sh";
