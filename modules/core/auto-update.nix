@@ -8,9 +8,9 @@
 
   system.autoUpgrade = {
     enable = true;
-    dates = "21:21";
+    dates = "00:00";
     persistent = true; # Runs missed updates immediately on boot if offline at 03:00
-    # randomizedDelaySec = "45min";
+    randomizedDelaySec = "30min";
     flake = "git+ssh://git@github.com/shoredevin/nix_config.git";
     operation = "boot";
   };
