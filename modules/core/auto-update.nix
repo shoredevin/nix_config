@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }:
 
 {
+  sops.defaultSopsFile = ../../secrets/secrets.yaml;
+
   sops.secrets.deploy_ssh_key = {
     mode = "0400";
     owner = "root";
@@ -28,7 +30,7 @@
 	  EnvironmentFile = config.sops.secrets.ntfy_env.path;
     
 	  Environment = [
-        "GIT_SSH_COMMAND=${pkgs.openssh}/bin/ssh -i ${config.sops.secrets.deploy_ssh_key.path} -o StrictHostKeyChecking=accept-new"
+		"GIT_SSH_COMMAND=\"${pkgs.openssh}/bin/ssh -i ${config.sops.secrets.deploy_ssh_key.path} -o StrictHostKeyChecking=accept-new\""
       ];
   
       ExecStartPost = pkgs.writeShellScript "ntfy-success-hook" ''
