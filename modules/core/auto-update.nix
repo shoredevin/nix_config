@@ -5,7 +5,7 @@
     enable = true;
     dates = "minutely";
     # randomizedDelaySec = "45min";
-    flake = "git+ssh://git@://github.com:shoredevin/nix_config.git";
+    flake = "git+ssh://git@github.com/shoredevin/nix_config.git";
     operation = "boot";
   };
 
@@ -13,14 +13,20 @@
     onFailure = [ "notify-ntfy-failure.service" ]; 
 
     serviceConfig = {
+      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /root/.ssh";
+      
       # Load the credentials file into this systemd service safely
       EnvironmentFile = "/etc/nixos/ntfy-auth.env";
       
-      Environment = [
-        "HOME=/home/yourusername"
-        "GIT_SSH_COMMAND=ssh -i /home/yourusername/.ssh/id_ed25519 -o UserKnownHostsFile=/home/yourusername/.ssh/known_hosts"
+      BindReadOnlyPaths = [
+        "/home/dshore/.ssh:/root/.ssh"
       ];
 
+      # Git will naturally look in /root/.ssh/ for the keys
+      Environment = [
+        "GIT_SSH_COMMAND=${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=accept-new"
+      ];
+      
       ExecStartPost = pkgs.writeShellScript "ntfy-success-hook" ''
         CURRENT_HOST=$(hostname)
         
