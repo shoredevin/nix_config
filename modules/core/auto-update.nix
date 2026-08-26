@@ -4,8 +4,9 @@
   system.autoUpgrade = {
     enable = true;
     dates = "minutely";
+    persistent = true; # <--- Runs missed updates immediately on boot
     # randomizedDelaySec = "45min";
-    flake = "git+ssh://git@github.com/shoredevin/nix_config2.git";
+    flake = "git+ssh://git@github.com/shoredevin/nix_config.git";
     operation = "boot";
   };
 
@@ -28,8 +29,6 @@
       ];
       
       ExecStartPost = pkgs.writeShellScript "ntfy-success-hook" ''
-        CURRENT_HOST=$(hostname)
-        
         ${pkgs.curl}/bin/curl \
           -H "$NTFY_AUTH_HEADER" \
           -H "Title: NixOS Update Ready" \
@@ -50,13 +49,10 @@
     };
 
     script = ''
-      CURRENT_HOST=$(hostname)
-      
       ${pkgs.curl}/bin/curl \
         -H "$NTFY_AUTH_HEADER" \
         -H "Title: NixOS Upgrade FAILED" \
         -H "Priority: high" \
-        -H "Tags: x,warning" \
         -d "Background upgrade failed on ${config.networking.hostName}. Check 'journalctl -u nixos-upgrade'." \
         https://ntfy.poketools.info/nix-update
     '';
