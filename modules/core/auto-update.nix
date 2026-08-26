@@ -1,10 +1,15 @@
 { config, pkgs, lib, ... }:
 
 {
+  # Declaratively ensure /root/.ssh exists on boot for bind mounts
+  systemd.tmpfiles.rules = [
+    "d /root/.ssh 0700 root root - -"
+  ];
+
   system.autoUpgrade = {
     enable = true;
     dates = "minutely";
-    persistent = true; # <--- Runs missed updates immediately on boot
+    persistent = true; # Runs missed updates immediately on boot if offline at 03:00
     # randomizedDelaySec = "45min";
     flake = "git+ssh://git@github.com/shoredevin/nix_config.git";
     operation = "boot";
@@ -14,25 +19,22 @@
     onFailure = [ "notify-ntfy-failure.service" ]; 
 
     serviceConfig = {
-      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /root/.ssh";
-
-      # Load the credentials file into this systemd service safely
+      # Load credentials into service
       EnvironmentFile = "/etc/nixos/ntfy-auth.env";
       
       BindReadOnlyPaths = [
         "/home/dshore/.ssh:/root/.ssh"
       ];
 
-      # Git will naturally look in /root/.ssh/ for the keys
       Environment = [
         "GIT_SSH_COMMAND=${pkgs.openssh}/bin/ssh -o StrictHostKeyChecking=accept-new"
       ];
       
       ExecStartPost = pkgs.writeShellScript "ntfy-success-hook" ''
-        ${pkgs.curl}/bin/curl \
-          -H "$NTFY_AUTH_HEADER" \
+        ${pkgs.curl}/bin/curl -s \
+          -H "''$NTFY_AUTH_HEADER" \
           -H "Title: NixOS Update Ready" \
-          -H "Priority: low" \
+          -H "Priority: default" \
           -d "A new configuration has been prepared for ${config.networking.hostName}. It will apply on the next reboot." \
           https://ntfy.poketools.info/nix-update
       '';
@@ -44,12 +46,11 @@
     
     serviceConfig = {
       Type = "oneshot";
-      # Load the exact same credentials file into the failure handler
       EnvironmentFile = "/etc/nixos/ntfy-auth.env";
     };
 
     script = ''
-      ${pkgs.curl}/bin/curl \
+      ${pkgs.curl}/bin/curl -s \
         -H "$NTFY_AUTH_HEADER" \
         -H "Title: NixOS Upgrade FAILED" \
         -H "Priority: high" \
