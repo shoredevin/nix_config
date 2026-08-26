@@ -5,7 +5,7 @@
     enable = true;
     dates = "minutely";
     # randomizedDelaySec = "45min";
-    flake = "git+ssh://git@github.com/shoredevin/nix_config.git";
+    flake = "git+ssh://git@github.com/shoredevin/nix_config2.git";
     operation = "boot";
   };
 
@@ -57,7 +57,7 @@
         -H "Title: NixOS Upgrade FAILED" \
         -H "Priority: high" \
         -H "Tags: x,warning" \
-        -d "Background upgrade failed on $CURRENT_HOST. Check 'journalctl -u nixos-upgrade'." \
+        -d "Background upgrade failed on ${config.networking.hostName}. Check 'journalctl -u nixos-upgrade'." \
         https://ntfy.poketools.info/nix-update
     '';
   };
