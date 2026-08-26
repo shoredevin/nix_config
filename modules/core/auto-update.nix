@@ -14,7 +14,7 @@
 
     serviceConfig = {
       ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /root/.ssh";
-      
+
       # Load the credentials file into this systemd service safely
       EnvironmentFile = "/etc/nixos/ntfy-auth.env";
       
@@ -35,7 +35,7 @@
           -H "Title: NixOS Update Ready" \
           -H "Priority: low" \
           -H "Tags: white_check_mark,computer" \
-          -d "A new configuration has been prepared for $CURRENT_HOST. It will apply on the next reboot." \
+          -d "A new configuration has been prepared for ${config.networking.hostName}. It will apply on the next reboot." \
           https://ntfy.poketools.info/nix-update
       '';
     };
