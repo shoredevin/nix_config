@@ -34,7 +34,6 @@
           -H "$NTFY_AUTH_HEADER" \
           -H "Title: NixOS Update Ready" \
           -H "Priority: low" \
-          -H "Tags: white_check_mark,computer" \
           -d "A new configuration has been prepared for ${config.networking.hostName}. It will apply on the next reboot." \
           https://ntfy.poketools.info/nix-update
       '';
