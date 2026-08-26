@@ -8,9 +8,13 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+	sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-legacy, home-manager } @inputs:
+  outputs = { self, nixpkgs, nixpkgs-legacy, home-manager, sops-nix } @inputs:
     let
       system = "x86_64-linux";
 
@@ -22,8 +26,9 @@
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-home-manager.backupFileExtension = "backup";
+		  home-manager.backupFileExtension = "backup";
         }
+		sops-nix.nixosModules.sops
       ];
       
       mkHost = hostName: extraModules: nixpkgs.lib.nixosSystem {
