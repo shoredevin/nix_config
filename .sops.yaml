@@ -5,7 +5,6 @@ keys:
    - &host_thunkpad age10c6n77a0tml6yl8pmdtfyadx0pp8luqr9rxwp5c9na90mr6r3atsa7pw6t
    - &host_livingroom age10s2wu45f3au5yx4g5c999l68au3k2h5u3an5z8qm2qdz0aegeukq8l0602
    - &host_thinkpad age1qnnnvtc99g0nrg7tg9erz5wr896ucwdrgant4u8rtexa34r58d5qkx06pn
-   - &host_poopbook age1syjllnswmkex3ngscc98e569d2al5j76c32m2sahlrmeff03k5hs4d4jgk
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
@@ -16,4 +15,3 @@ creation_rules:
           - *host_thunkpad
           - *host_livingroom
           - *host_thinkpad
-          - *host_poopbook
