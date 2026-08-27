@@ -50,6 +50,11 @@
     
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   };
+
+  sops.secrets.test_key_fun = {
+    mode = "0400";
+    owner = "dshore"; # Make sure this matches your local username
+  };
   
   fonts.packages = [ pkgs.nerd-fonts.droid-sans-mono ];
 

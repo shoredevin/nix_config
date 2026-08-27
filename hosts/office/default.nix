@@ -4,7 +4,6 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/core/desktop.nix
-	../../modules/core/auto-update.nix 
     ../../modules/apps/dev.nix
     ../../modules/apps/sops-workstation.nix
 	../../modules/apps/vm.nix

@@ -5,6 +5,6 @@
     path = "/home/dshore/.config/sops/age/keys.txt";
     owner = "dshore";
     group = "users";
-    mode = "0600";
+    mode = "0400";
   };
 }
