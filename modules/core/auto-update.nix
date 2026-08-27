@@ -1,8 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  sops.defaultSopsFile = ../../secrets/secrets.yaml;
-
   sops.secrets.deploy_ssh_key = {
     mode = "0400";
     owner = "root";

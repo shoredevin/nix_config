@@ -43,6 +43,13 @@
     };
     ports = [ 22 ];
   };
+
+  sops = {
+    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  };
   
   fonts.packages = [ pkgs.nerd-fonts.droid-sans-mono ];
 
