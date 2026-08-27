@@ -6,4 +6,6 @@
     ../../modules/core/desktop.nix
 	../../modules/core/auto-update.nix
   ];
+
+  nix.settings.trusted-users = [ "root" "@wheel" "dshore" ];
 }
