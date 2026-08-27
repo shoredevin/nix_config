@@ -21,11 +21,17 @@ in {
         nodejs
         docker-compose
         postman
-        androidStudioPackages.stable	 
+        androidStudioPackages.stable
+		sops
+		age
       ];
       
       extraGroups = [ "docker" ];
     });
+
+    environment.sessionVariables = {
+      SOPS_AGE_KEY_FILE = "$HOME/.config/sops/age/keys.txt";
+    };
 
     virtualisation.docker.enable = true;
     
