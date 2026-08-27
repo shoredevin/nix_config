@@ -46,7 +46,7 @@
         thunkpad   = mkHost "thunkpad" [ ];
         livingroom = mkHost "livingroom" [ ];
         jellyfin   = mkHost "jellyfin" [ ];
-		poo   = mkHost "poo" [ ];
+		poo        = mkHost "poo" [ ];
       };  
     };  
 }
