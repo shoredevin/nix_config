@@ -5,6 +5,7 @@
 	./hardware-configuration.nix
 	../../modules/core/desktop.nix
 	../../modules/apps/dev.nix
+	../../modules/apps/sops-workstation.nix
   ];
 
   modules.dev.enable = true;

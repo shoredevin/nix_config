@@ -5,9 +5,9 @@
     ./hardware-configuration.nix
     ../../modules/core/desktop.nix
 	../../modules/core/auto-update.nix 
-   ../../modules/apps/dev.nix
+    ../../modules/apps/dev.nix
+    ../../modules/apps/sops-workstations.nix
 	../../modules/apps/vm.nix
-	../../users/miya/default.nix
   ];
 
   modules.dev.enable = true;
