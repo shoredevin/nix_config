@@ -33,6 +33,10 @@
     tree
   ];
   
+  programs.bash = {
+  enable = true;
+};
+
   networking.networkmanager.enable = true;
 
   services.openssh = {
