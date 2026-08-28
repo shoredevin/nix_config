@@ -9,5 +9,5 @@
         ../../users/senna/default.nix
     ];
 
-    nix.settings.trusted-users = [ "root" "@wheel" "dshore" ];
+    # nix.settings.trusted-users = [ "root" "@wheel" "dshore" ];
 }
