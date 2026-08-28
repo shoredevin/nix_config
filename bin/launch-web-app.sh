@@ -3,15 +3,15 @@
 URL="$1"
 shift
 
-browser=$(xdg-settings get default-web-browser 2>/dev/null)
-
-if [[ $browser == firefox* ]]; then
-  # Opens an isolated window, hiding default workspace state
-  exec firefox --new-window "$URL" "$@"
+# Web apps work natively in Chromium/Brave with dedicated app windows.
+# If Chromium is installed, use it for app windows regardless of default browser.
+if command -v chromium &>/dev/null; then
+  exec chromium --app="$URL" "$@"
+elif command -v brave &>/dev/null; then
+  exec brave --app="$URL" "$@"
+elif command -v google-chrome-stable &>/dev/null; then
+  exec google-chrome-stable --app="$URL" "$@"
 else
-  # Chromium-based browsers (Brave, Chrome, Vivaldi, etc.)
-  exec_line=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' \
-    {"$HOME/.local","$HOME/.nix-profile",/run/current-system/sw}/share/applications/$browser 2>/dev/null | head -1)
-
-  exec "${exec_line:-xdg-open}" --app="$URL" "$@"
+  # Fallback to default browser
+  exec xdg-open "$URL"
 fi
