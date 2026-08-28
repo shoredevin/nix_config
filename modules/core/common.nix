@@ -31,12 +31,11 @@
     htop
     fastfetch
     tree
+	cowsay
+    (pkgs.writeShellScriptBin "say-hi" (builtins.readFile ../../bin/say-hi.sh))
+
   ];
   
-  programs.bash = {
-  enable = true;
-};
-
   networking.networkmanager.enable = true;
 
   services.openssh = {
