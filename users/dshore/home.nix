@@ -18,19 +18,6 @@
     set numbercolor white,black
   '';
 
-  home.file.".config/cosmic/com.system76.CosmicBackground/v1/all".force = true;
-  home.file.".config/cosmic/com.system76.CosmicBackground/v1/all".text = ''
-	 (
-	     output: "all",
-	     source: Path("/home/dshore/Documents/nix_config/backgrounds/busan.png"),
-	     filter_by_theme: true,
-	     rotation_frequency: 300,
-	     filter_method: Lanczos,
-	     scaling_mode: Zoom,
-	     sampling_method: Alphanumeric,
-	 )
-  '';
-
   programs.readline = {
     enable = true;
     variables = {
