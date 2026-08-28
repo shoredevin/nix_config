@@ -6,6 +6,10 @@
   home.packages = with pkgs; [ 
     eza 
   ];
+
+  home.sessionPath = [
+    "$HOME/Documents/nix_config/bin"
+  ];
   
   home.file.".nanorc".text = ''
     set linenumbers
