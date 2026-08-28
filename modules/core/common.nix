@@ -33,7 +33,7 @@
     tree
 	cowsay
     (pkgs.writeShellScriptBin "say-hi" (builtins.readFile ../../bin/say-hi.sh))
-
+	(pkgs.writeShellScriptBin "say-bye" (builtins.readFile ../../bin/say-bye.sh))
   ];
   
   networking.networkmanager.enable = true;
