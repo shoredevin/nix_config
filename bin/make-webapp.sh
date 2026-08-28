@@ -140,7 +140,7 @@ else
 fi
 
 # Use custom exec if provided, otherwise default behavior
-EXEC_COMMAND="${CUSTOM_EXEC:-omarchy-launch-webapp $APP_URL}"
+EXEC_COMMAND="${CUSTOM_EXEC:-launch-webapp $APP_URL}"
 
 # Create application .desktop file
 DESKTOP_DIR="$HOME/.local/share/applications"

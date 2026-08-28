@@ -72,4 +72,29 @@
       };
     };
   };
+
+# Declarative Desktop Launcher
+  xdg.desktopEntries.make-webapp = {
+    name = "make-webapp";
+    comment = "Create a desktop launcher for a web app";
+    exec = "make-webapp-gui";
+    terminal = false;
+    type = "Application";
+    icon = "poketools";
+    startupNotify = true;
+    settings = {
+      StartupWMClass = "make-webapp-dialog";
+    };
+  };
+	xdg.configFile."cosmic/com.system76.CosmicSettings.WindowRules/v1/tiling_exception_custom".text = ''
+	  [
+	      (
+	          enabled: true,
+	          appid: "make-webapp-dialog",
+	          title: "Make Web App",
+	      ),
+	  ]
+	'';
+
+
 }
