@@ -35,6 +35,7 @@
 	cowsay
     (pkgs.writeShellScriptBin "say-hi" (builtins.readFile ../../bin/say-hi.sh))
 	(pkgs.writeShellScriptBin "say-bye" (builtins.readFile ../../bin/say-bye.sh))
+    (pkgs.writeShellScriptBin "say-please" (builtins.readFile ../../bin/say-please.sh))
   ];
   
   networking.networkmanager.enable = true;
