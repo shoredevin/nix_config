@@ -100,6 +100,5 @@ echo -e "\n==> [6/6] Building and deploying NixOS configuration to ${HOST_NAME}.
 nixos-rebuild switch \
   --flake ".#${HOST_NAME}" \
   --target-host "${TARGET_USER}@${HOST_IP}" \
-  --use-remote-sudo
-
-echo -e "\n✓ Bootstrap complete for ${HOST_NAME}!"
+  --elevate=sudo \
+  --ask-elevate-password
