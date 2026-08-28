@@ -36,6 +36,8 @@
     (pkgs.writeShellScriptBin "say-hi" (builtins.readFile ../../bin/say-hi.sh))
 	(pkgs.writeShellScriptBin "say-bye" (builtins.readFile ../../bin/say-bye.sh))
     (pkgs.writeShellScriptBin "say-please" (builtins.readFile ../../bin/say-please.sh))
+    (pkgs.writeShellScriptBin "make-webapp" (builtins.readFile ../../bin/make-webapp.sh))
+    (pkgs.writeShellScriptBin "launch-webapp" (builtins.readFile ../../bin/launch-web-app.sh))
   ];
   
   networking.networkmanager.enable = true;
