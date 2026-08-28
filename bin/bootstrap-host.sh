@@ -92,8 +92,12 @@ sops updatekeys secrets/secrets.yaml
 # 6. Stage and Commit Git changes
 echo -e "\n==> [5/6] Staging files and committing to Git..."
 git add "${HOST_DIR}" .
-git commit -m "feat(hosts): initialize hardware config and secrets for ${HOST_NAME}"
-git push origin "${BRANCH}"
+if ! git diff --cached --quiet; then
+	git commit
+	git push origin "${BRANCH}"
+else
+  echo "No changes detected in git workspace. Skipping commit/push."
+fi
 
 # 7. Deploy via nixos-rebuild
 echo -e "\n==> [6/6] Building and deploying NixOS configuration to ${HOST_NAME}..."
