@@ -1,11 +1,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  sops.secrets.deploy_ssh_key = {
-    mode = "0400";
-    owner = "root";
-  };
-
   sops.secrets.ntfy_env = {
     mode = "0400";
     owner = "root";
@@ -16,7 +11,7 @@
     dates = "00:00";
     persistent = true; # Runs missed updates immediately on boot if offline at 03:00
     randomizedDelaySec = "30min";
-    flake = "git+ssh://git@github.com/shoredevin/nix_config.git";
+	flake = "github:shoredevin/nix_config";
     operation = "boot";
   };
 
@@ -26,11 +21,7 @@
     serviceConfig = {
       # Load credentials into service
 	  EnvironmentFile = config.sops.secrets.ntfy_env.path;
-    
-	  Environment = [
-		"GIT_SSH_COMMAND=\"${pkgs.openssh}/bin/ssh -i ${config.sops.secrets.deploy_ssh_key.path} -o StrictHostKeyChecking=accept-new\""
-      ];
-  
+     
       ExecStartPost = pkgs.writeShellScript "ntfy-success-hook" ''
         ${pkgs.curl}/bin/curl -s \
           -H "''$NTFY_AUTH_HEADER" \
