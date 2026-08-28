@@ -51,8 +51,9 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-      nc = "~/Documents/nix_config/config.sh";
-      nr = "~/Documents/nix_config/updateFlake.sh";
+	  bg = "bootstrap-host.sh"
+      nc = "config.sh";
+      nr = "updateFlake.sh";
       ls = "eza --icons";
       la = "eza -a --icons";
       ll = "eza -a -l -B --icons";
