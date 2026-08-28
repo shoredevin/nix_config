@@ -8,4 +8,6 @@
         ../../users/miya/default.nix
         ../../users/senna/default.nix
     ];
+
+    nix.settings.trusted-users = [ "root" "@wheel" "dshore" ];
 }
