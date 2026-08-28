@@ -8,7 +8,7 @@
   ];
 
   home.sessionPath = [
-    "$HOME/Documents/nix_config/bin"
+    "${config.home.homeDirectory}/Documents/nix_config/bin"
   ];
   
   home.file.".nanorc".text = ''
