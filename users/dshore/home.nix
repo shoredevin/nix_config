@@ -51,7 +51,7 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-	  bg = "bootstrap-host.sh"
+	  bg = "bootstrap-host.sh";
       nc = "config.sh";
       nr = "updateFlake.sh";
       ls = "eza --icons";
