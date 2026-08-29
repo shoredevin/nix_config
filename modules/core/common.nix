@@ -44,6 +44,7 @@ in
     makeWebapp
     makeWebappGui
 	updateN
+	hello
 ];
 
 systemd.user.services.update-n-startup = {
