@@ -4,7 +4,7 @@ let
   launchWebapp = pkgs.callPackage ../../pkgs/launch-webapp.nix { };
   makeWebapp = pkgs.callPackage ../../pkgs/make-webapp.nix { };
   makeWebappGui = pkgs.callPackage ../../pkgs/make-webapp-gui.nix { inherit makeWebapp; };
-  updateN = pkgs.callPackage ../../pkgs/update-restart-notification.net { };
+  updateN = pkgs.callPackage ../../pkgs/update-restart-notification.nix { };
 in
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
