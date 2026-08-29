@@ -58,6 +58,15 @@ in
     };
   };  
 
+  systemd.user.paths.update-n-watcher = {
+    description = "Watch for NixOS system profile changes";
+    wantedBy = [ "graphical-session.target" ];
+    pathConfig = {
+      PathChanged = "/nix/var/nix/profiles/system";
+      Unit = "update-n-startup.service";
+    };
+  };
+
   networking.networkmanager.enable = true;
 
   services.openssh = {
