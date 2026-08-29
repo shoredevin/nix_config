@@ -4,7 +4,7 @@ let
   launchWebapp = pkgs.callPackage ../../pkgs/launch-webapp/default.nix { };
   makeWebapp = pkgs.callPackage ../../pkgs/make-webapp/default.nix { };
   makeWebappGui = pkgs.callPackage ../../pkgs/make-webapp/gui.nix { inherit makeWebapp; };
-  updateN = pkgs.callPackage ../../pkgs/pending-update-notification/default.nix { };
+  pendingUpdateNotification = pkgs.callPackage ../../pkgs/pending-update-notification/default.nix { };
 in
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -38,13 +38,13 @@ in
     htop
     fastfetch
     tree
-	  cowsay
-    (pkgs.writeShellScriptBin "say-hi" (builtins.readFile ../../bin/say-hi.sh))
+    (pkgs.writeShellScriptBin "bootstrap-host" (builtins.readFile ../../bin/bootstrap-host.sh))
+    (pkgs.writeShellScriptBin "config" (builtins.readFile ../../bin/config.sh))
+	(pkgs.writeShellScriptBin "update-flake" (builtins.readFile ../../bin/update-flake.sh))
     launchWebapp
     makeWebapp
     makeWebappGui
-	  updateN
-	  hello
+    pendingUpdateNotification
   ];
 
   systemd.user.services.update-n-startup = {
