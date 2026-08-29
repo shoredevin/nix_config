@@ -3,5 +3,5 @@
 (pkgs.writeShellApplication { 
     name = "launch-webapp"; 
     runtimeInputs = [ pkgs.chromium ];
-    text = builtins.readFile ../bin/launch-web-app.sh;
+    text = builtins.readFile ../../bin/launch-web-app.sh;
 })
