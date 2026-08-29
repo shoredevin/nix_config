@@ -59,11 +59,12 @@ in
     };
   };  
 
+  # Watcher path unit
   systemd.user.paths.update-n-watcher = {
     description = "Watch for NixOS system profile changes";
     wantedBy = [ "graphical-session.target" ];
     pathConfig = {
-      PathChanged = "/nix/var/nix/profiles/system";
+      PathModified = "/nix/var/nix/profiles";
       Unit = "update-n-startup.service";
     };
   };
