@@ -1,44 +1,10 @@
 { config, pkgs, lib, ... }:
 
 let
-	makeWebapp = pkgs.writeShellApplication {
-		name = "make-webapp";
-		runtimeInputs = with pkgs; [
-	  		gum curl file gnused gnugrep gtk3
-		];
-		text = builtins.readFile ../../bin/make-webapp.sh;
-	};
-	makeWebappGui = pkgs.writeScriptBin "make-webapp-gui" ''
-	  #!${pkgs.stdenv.shell}
-	  
-	  exec ${pkgs.foot}/bin/foot \
-	    -a "make-webapp-dialog" \
-	    -T "Make Web App" \
-	    -f "monospace:size=14" \
-	    -w "700x480" \
-	    -o "pad=24x20" \
-	    -o "colors-dark.background=1e1e2e" \
-	    -o "colors-dark.foreground=cdd6f4" \
-	    -o "colors-dark.regular0=45475a" \
-	    -o "colors-dark.regular1=f38ba8" \
-	    -o "colors-dark.regular2=a6e3a1" \
-	    -o "colors-dark.regular3=f9e2af" \
-	    -o "colors-dark.regular4=89b4fa" \
-	    -o "colors-dark.regular5=f5c2e7" \
-	    -o "colors-dark.regular6=94e2d5" \
-	    -o "colors-dark.regular7=bac2de" \
-	    -o "colors-dark.bright0=585b70" \
-	    -o "colors-dark.bright1=f38ba8" \
-	    -o "colors-dark.bright2=a6e3a1" \
-	    -o "colors-dark.bright3=f9e2af" \
-	    -o "colors-dark.bright4=89b4fa" \
-	    -o "colors-dark.bright5=f5c2e7" \
-	    -o "colors-dark.bright6=94e2d5" \
-	    -o "colors-dark.bright7=a6adc8" \
-	    -o "colors-dark.selection-foreground=cdd6f4" \
-	    -o "colors-dark.selection-background=45475a" \
-	    ${pkgs.bash}/bin/bash -c "${makeWebapp}/bin/make-webapp; echo; read -p 'Press Enter to close...'"
-	'';
+  launchWebapp = pkgs.callPackage ../../pkgs/launch-webapp.nix { };
+  makeWebapp = pkgs.callPackage ../../pkgs/make-webapp.nix { };
+  makeWebappGui = pkgs.callPackage ../../pkgs/make-webapp-gui.nix { inherit makeWebapp; };
+  updateN = pkgs.callPackage ../../pkgs/update-restart-notification.net { };
 in
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -72,17 +38,12 @@ in
     htop
     fastfetch
     tree
-	cowsay
+	  cowsay
     (pkgs.writeShellScriptBin "say-hi" (builtins.readFile ../../bin/say-hi.sh))
-	(pkgs.writeShellScriptBin "say-bye" (builtins.readFile ../../bin/say-bye.sh))
-    (pkgs.writeShellScriptBin "say-please" (builtins.readFile ../../bin/say-please.sh))
-    (pkgs.writeShellApplication { 
-      name = "launch-webapp"; 
-	  runtimeInputs = [ pkgs.chromium ];
-      text = builtins.readFile ../../bin/launch-web-app.sh;
-	})
+    launchWebapp
     makeWebapp
     makeWebappGui
+	updateN
 ];
   
   networking.networkmanager.enable = true;
