@@ -8,10 +8,6 @@
   home.packages = with pkgs; [ 
     eza 
   ];
-
-  home.sessionPath = [
-    "${config.home.homeDirectory}/Documents/nix_config/bin"
-  ];
   
   home.file.".nanorc".text = ''
     set linenumbers
@@ -40,9 +36,9 @@
   programs.bash = {
     enable = true;
     shellAliases = {
-	  bh = "bootstrap-host.sh";
-      nc = "config.sh";
-      nr = "updateFlake.sh";
+	  bh = "bootstrap-host";
+      nc = "config";
+      nr = "update-flake";
       ls = "eza --icons";
       la = "eza -a --icons";
       ll = "eza -a -l -B --icons";
