@@ -8,7 +8,7 @@ let
     exec = "make-webapp-gui";
     terminal = false;
     type = "Application";
-    icon = "${./make-webapp.ico}";
+    icon = "${./icon.png}";
     startupNotify = true;
     startupWMClass = "make-webapp-dialog";
   };

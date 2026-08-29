@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }:
-# testinga change
+
 let
-  launchWebapp = pkgs.callPackage ../../pkgs/launch-webapp.nix { };
-  makeWebapp = pkgs.callPackage ../../pkgs/make-webapp.nix { };
-  makeWebappGui = pkgs.callPackage ../../pkgs/make-webapp-gui.nix { inherit makeWebapp; };
-  updateN = pkgs.callPackage ../../pkgs/update-restart-notification.nix { };
+  launchWebapp = pkgs.callPackage ../../pkgs/launch-webapp/default.nix { };
+  makeWebapp = pkgs.callPackage ../../pkgs/make-webapp/default.nix { };
+  makeWebappGui = pkgs.callPackage ../../pkgs/make-webapp/gui.nix { inherit makeWebapp; };
+  updateN = pkgs.callPackage ../../pkgs/pending-update-notification/default.nix { };
 in
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -43,25 +43,26 @@ in
     launchWebapp
     makeWebapp
     makeWebappGui
-	updateN
-	hello
-];
+	  updateN
+	  hello
+  ];
 
-systemd.user.services.update-n-startup = {
-  description = "Send startup notification";
-  after = [ "graphical-session.target" ];
-  wantedBy = [ "graphical-session.target" ];
-  serviceConfig = {
-    Type = "oneshot";
-    ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
-    ExecStart = "/run/current-system/sw/bin/update-n";
-  };
-};  
+  systemd.user.services.update-n-startup = {
+    description = "Send startup notification";
+    after = [ "graphical-session.target" ];
+    wantedBy = [ "graphical-session.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
+      ExecStart = "/run/current-system/sw/bin/update-n";
+    };
+  };  
+
   networking.networkmanager.enable = true;
 
   services.openssh = {
     enable = true;
-	settings = {
+	  settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
     };
