@@ -44,7 +44,6 @@ in
     makeWebapp
     makeWebappGui
 	updateN
-	# hello
 ];
 
 systemd.user.services.update-n-startup = {
@@ -53,7 +52,7 @@ systemd.user.services.update-n-startup = {
   wantedBy = [ "graphical-session.target" ];
   serviceConfig = {
     Type = "oneshot";
-    ExecStartPre = "${pkgs.coreutils}/bin/sleep 5";
+    ExecStartPre = "${pkgs.coreutils}/bin/sleep ";
     ExecStart = "/run/current-system/sw/bin/update-n";
   };
 };  
