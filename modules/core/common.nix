@@ -45,6 +45,7 @@ in
     makeWebapp
     makeWebappGui
     pendingUpdateNotification
+    hello
   ];
 
   systemd.user.services.update-n-startup = {
