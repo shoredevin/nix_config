@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 hostname=$(hostname)
 if [ -z "$1" ]; then
  file="flake.nix"
