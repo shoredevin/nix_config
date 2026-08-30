@@ -5,6 +5,7 @@ let
   makeWebapp = pkgs.callPackage ../../pkgs/make-webapp/default.nix { };
   makeWebappGui = pkgs.callPackage ../../pkgs/make-webapp/gui.nix { inherit makeWebapp; };
   pendingUpdateNotification = pkgs.callPackage ../../pkgs/pending-update-notification/default.nix { };
+  # bashGui = pkgs.callPackage ../../pkgs/bash-gui/default.nix { };
 in
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -45,7 +46,7 @@ in
     makeWebapp
     makeWebappGui
     pendingUpdateNotification
-    btop
+    # bashGui
   ];
 
   systemd.user.services.update-n-startup = {
