@@ -3,7 +3,7 @@
 let
   launchWebapp = pkgs.callPackage ../../pkgs/launch-webapp/default.nix { };
   makeWebapp = pkgs.callPackage ../../pkgs/make-webapp/default.nix { };
-  makeWebappGui = pkgs.callPackage ../../pkgs/make-webapp/gui.nix { inherit makeWebapp; };
+  # makeWebappGui = pkgs.callPackage ../../pkgs/make-webapp/gui.nix { inherit makeWebapp; };
   pendingUpdateNotification = pkgs.callPackage ../../pkgs/pending-update-notification/default.nix { };
   # bashGui = pkgs.callPackage ../../pkgs/bash-gui/default.nix { };
 in
@@ -41,10 +41,10 @@ in
     tree
     (pkgs.writeShellScriptBin "bootstrap-host" (builtins.readFile ../../bin/bootstrap-host.sh))
     (pkgs.writeShellScriptBin "config" (builtins.readFile ../../bin/config.sh))
-	(pkgs.writeShellScriptBin "update-flake" (builtins.readFile ../../bin/update-flake.sh))
+	  (pkgs.writeShellScriptBin "update-flake" (builtins.readFile ../../bin/update-flake.sh))
     launchWebapp
     makeWebapp
-    makeWebappGui
+    # makeWebappGui
     pendingUpdateNotification
     # bashGui
   ];
