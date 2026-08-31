@@ -205,7 +205,7 @@ url=$(echo "$data" | cut -d'|' -f2 | xargs)
 # 2. Validation
 if [[ -z "$name" || -z "$url" ]]; then
     show_error "Application Name and URL cannot be empty!"
-    bash-gui
+    make-webapp
     exit 1
 fi
 
