@@ -1,4 +1,24 @@
-# Set host arm user UID/GID to 1000 to match ARM container default
+{ config, pkgs, inputs, ... }:
+
+let
+  pkgs-legacy = import inputs.nixpkgs-legacy {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
+{
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/core/desktop.nix
+    ../../modules/core/auto-update.nix
+  ];
+
+  modules.auto-update = {
+    enable = true;
+    operation = "switch";
+  };
+
+  # Host arm user and group set to 1000 to match container defaults
   users.groups.arm = {
     gid = 1000;
   };
@@ -12,10 +32,30 @@
     createHome = true;
   };
 
+  # Services & Firewall
+  services.jellyfin.enable = true;
+  networking.firewall.allowedTCPPorts = [ 8080 8096 8920 47990 ];
+
+  services.sunshine = {
+    enable = true;
+    autoStart = true;
+    capSysAdmin = true;
+    openFirewall = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    hello
+    cowsay
+  ];
+
+  # Docker & Declarative ARM Container
+  virtualisation.docker.enable = true;
+
+  virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers.arm-rippers = {
     image = "automaticrippingmachine/automatic-ripping-machine:latest";
     autoStart = true;
-    
+
     ports = [
       "8080:8080"
     ];
@@ -43,3 +83,4 @@
       "--privileged"
     ];
   };
+}
