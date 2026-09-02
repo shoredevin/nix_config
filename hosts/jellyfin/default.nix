@@ -22,8 +22,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-	btop
-	hello
+	feh
 	cowsay
   ];
 
