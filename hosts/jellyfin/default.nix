@@ -12,6 +12,10 @@
 	operation = "switch";
   };
 
+users.users.arm = {
+    extraGroups = [ "cdrom" "optical" ];
+  };
+
   services.jellyfin.enable = true;
   networking.firewall.allowedTCPPorts = [ 8080 8096 8920 47990 ];
   services.sunshine = {
@@ -56,6 +60,27 @@
     extraOptions = [
       "--privileged"
     ];
+  };
+
+systemd.services.arm = {
+    description = "Automatic Ripping Machine";
+    wantedBy = [ "multi-user.target" ];
+
+    serviceConfig = {
+      User = "arm";
+      Group = "arm";
+
+      # Load the OMDb key as an environment variable (e.g. OMDB_API_KEY=your_key)
+      EnvironmentFile = config.sops.secrets.omdb_api_key.path;
+
+      # Ensure ARM has access to required binaries
+      Path = with pkgs; [
+        makemkv
+        util-linux # Provides umount and findmnt
+        curl
+        handbrake
+      ];
+    };
   };
 
 }
