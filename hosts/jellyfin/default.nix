@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixpkgs-legacy ... }:
 
 {
   imports = [
@@ -78,8 +78,10 @@ systemd.services.arm = {
         makemkv
         util-linux # Provides umount and findmnt
         curl
-        handbrake
       ];
+		PATH = with nixpkgs-legacy; [
+			handbrake
+		];
     };
   };
 
