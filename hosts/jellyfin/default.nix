@@ -72,7 +72,6 @@ systemd.services.arm = {
       Group = "arm";
 
       # Load the OMDb key as an environment variable (e.g. OMDB_API_KEY=your_key)
-      EnvironmentFile = config.sops.secrets.omdb_api_key.path;
 
       # Ensure ARM has access to required binaries
       Path = with pkgs; [
