@@ -22,7 +22,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-	feh
+	hello
 	cowsay
   ];
 
