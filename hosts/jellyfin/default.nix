@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs-legacy ... }:
+{ config, pkgs, nixpkgs-legacy, ... }:
 
 {
   imports = [
