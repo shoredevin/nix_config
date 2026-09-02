@@ -86,7 +86,7 @@ systemd.services.arm = {
         makemkv
         util-linux # Provides umount and findmnt
         curl
-	pkgs-legacy.handbrake-cli
+	pkgs-legacy.handbrake
       ];
     };
   };
