@@ -9,7 +9,7 @@
 
   modules.auto-update = {
 	enable = true;
-	operation - "switch";
+	operation = "switch";
   };
 
   services.jellyfin.enable = true;
