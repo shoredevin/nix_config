@@ -15,4 +15,9 @@
     capSysAdmin = true;
     openFirewall = true;
   };
+
+  environment.systemPackages = with pkgs; [
+	btop
+  ];
+
 }
