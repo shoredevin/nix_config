@@ -13,6 +13,7 @@
   };
 
 users.users.arm = {
+isNormalUser = true;
     extraGroups = [ "cdrom" "optical" ];
   };
 
