@@ -94,7 +94,6 @@ systemd.services.arm = {
       Restart = "always";
       RestartSec = "5s";
 
-      EnvironmentFile = config.sops.secrets.omdb_api_key.path;
     };
   };
 }
