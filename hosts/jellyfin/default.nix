@@ -54,12 +54,7 @@ in
   # 2. Docker & OCI Container Management
   virtualisation.docker.enable = true;
 
-  # Enable sops-nix secret for OMDb API Key
-  sops.secrets.omdb_env = {
-    mode = "0400";
-    owner = "root";
-  };
-
+ 
   virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers.arm-rippers = {
     image = "automaticrippingmachine/automatic-ripping-machine:latest";
