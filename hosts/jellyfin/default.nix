@@ -20,9 +20,13 @@ in
 	operation = "switch";
   };
 
+users.groups.arm = {};
 users.users.arm = {
-isNormalUser = true;
-    extraGroups = [ "cdrom" "optical" ];
+    isSystemUser = true;
+    group = "arm";
+    extraGroups = [ "cdrom" ];
+    home = "/home/arm";
+    createHome = true;
   };
 
   services.jellyfin.enable = true;
