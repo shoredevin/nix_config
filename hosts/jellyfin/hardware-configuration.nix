@@ -8,26 +8,31 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "ehci_pci" "ahci" "xhci_pci" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/2177c215-fa26-4b8f-a6e4-f52ccf95760d";
+    { device = "/dev/disk/by-uuid/a087ccee-676b-4ff6-bb72-fea5528df388";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/1E4D-DBC0";
+    { device = "/dev/disk/by-uuid/DC2C-5EA2";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
+
+  fileSystems."/mnt/movies" =
+    { device = "/dev/disk/by-uuid/9A22D32F22D30EDF";
+      fsType = "ntfs3";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/f9a6e286-a17b-4478-92fb-7b1d5fd8ad05"; }
+    [ { device = "/dev/disk/by-uuid/3298d1e9-4eba-45e3-a1cd-4107240de506"; }
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
