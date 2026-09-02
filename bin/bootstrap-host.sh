@@ -64,11 +64,11 @@ echo "========================================="
 mkdir -p "${HOST_DIR}"
 
 # 2. Verify / Copy SSH keys to target host
-echo -e "\n==> [1/6] Verifying SSH access..."
-if ! ssh -o ConnectTimeout=5 -o BatchMode=yes -o StrictHostKeyChecking=accept-new "${TARGET_USER}@${HOST_IP}" exit 2>/dev/null; then
-  echo "SSH key access not detected. Copying public key..."
-  ssh-copy-id -i ~/.ssh/id_ed25519.pub "${TARGET_USER}@${HOST_IP}"
-fi
+# echo -e "\n==> [1/6] Verifying SSH access..."
+# if ! ssh -o ConnectTimeout=5 -o BatchMode=yes -o StrictHostKeyChecking=accept-new "${TARGET_USER}@${HOST_IP}" exit 2>/dev/null; then
+#   echo "SSH key access not detected. Copying public key..."
+#   ssh-copy-id -i ~/.ssh/id_ed25519.pub "${TARGET_USER}@${HOST_IP}"
+# fi
 
 # 3. Fetch hardware configuration
 echo -e "\n==> [2/6] Fetching hardware-configuration.nix..."
