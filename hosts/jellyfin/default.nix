@@ -1,8 +1,6 @@
 { config, pkgs, inputs, ... }:
 
-
 let
-  # Instantiate the legacy package set with system & unfree configs
   pkgs-legacy = import inputs.nixpkgs-legacy {
     system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
@@ -12,25 +10,35 @@ in
   imports = [
     ./hardware-configuration.nix
     ../../modules/core/desktop.nix
-	../../modules/core/auto-update.nix
+    ../../modules/core/auto-update.nix
   ];
 
   modules.auto-update = {
-	enable = true;
-	operation = "switch";
+    enable = true;
+    operation = "switch";
   };
 
-users.groups.arm = {};
-users.users.arm = {
+  # 1. Host user and group for file permissions
+  users.groups.arm = {
+    gid = 1001; # Explicit GID matching container
+  };
+
+  users.users.arm = {
     isSystemUser = true;
+    uid = 1001; # Explicit UID matching container
     group = "arm";
     extraGroups = [ "cdrom" ];
     home = "/home/arm";
     createHome = true;
   };
 
+  # Allow docker users to pass unfree dependencies if needed
+  nixpkgs.config.allowUnfree = true;
+
+  # Services & Firewall
   services.jellyfin.enable = true;
   networking.firewall.allowedTCPPorts = [ 8080 8096 8920 47990 ];
+
   services.sunshine = {
     enable = true;
     autoStart = true;
@@ -39,27 +47,39 @@ users.users.arm = {
   };
 
   environment.systemPackages = with pkgs; [
-	hello
-	cowsay
+    hello
+    cowsay
   ];
 
-
-# Enable Docker or Podman (Docker is used in this example)
+  # 2. Docker & OCI Container Management
   virtualisation.docker.enable = true;
 
-  # Declaratively manage the ARM container
+  # Enable sops-nix secret for OMDb API Key
+  sops.secrets.omdb_env = {
+    mode = "0400";
+    owner = "root";
+  };
+
   virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers.arm-rippers = {
     image = "automaticrippingmachine/automatic-ripping-machine:latest";
     autoStart = true;
+    
     ports = [
       "8080:8080"
     ];
+
+    # Load OMDB_API_KEY=your_key from sops
+    environmentFiles = [
+      config.sops.secrets.omdb_env.path
+    ];
+
     environment = {
-      ARM_UID = "1000"; # Adjust to match host user ID if needed
-      ARM_GID = "1000"; # Adjust to match host group ID if needed
-	  WEB_SERVER_IP = "0.0.0.0"; # <-- Add this line
+      ARM_UID = "1001";
+      ARM_GID = "1001";
+      WEB_SERVER_IP = "0.0.0.0";
     };
+
     volumes = [
       "/home/arm:/home/arm"
       "/home/arm/Music:/home/arm/Music"
@@ -67,37 +87,13 @@ users.users.arm = {
       "/home/arm/media:/home/arm/media"
       "/home/arm/config:/etc/arm/config"
     ];
+
     devices = [
-      "/dev/sr0:/dev/sr0" # Pass your optical drive mapping
+      "/dev/sr0:/dev/sr0"
     ];
+
     extraOptions = [
       "--privileged"
     ];
-  };
-systemd.services.arm = {
-    description = "Automatic Ripping Machine";
-    wantedBy = [ "multi-user.target" ];
-
-    # Add required binaries to PATH (NixOS places these in the service PATH automatically)
-    path = [
-      pkgs.makemkv
-      pkgs.util-linux
-      pkgs.curl
-      pkgs.python3
-      pkgs-legacy.handbrake
-    ];
-
-    serviceConfig = {
-      User = "arm";
-      Group = "arm";
-      WorkingDirectory = "/opt/arm"; # Adjust if ARM is installed elsewhere
-
-      # Point to your ARM entrypoint script or WSGI server launcher
-      ExecStart = "/opt/arm/venv/bin/python3 /opt/arm/arm/ripper/main.py"; 
-
-      Restart = "always";
-      RestartSec = "5s";
-
-    };
   };
 }
