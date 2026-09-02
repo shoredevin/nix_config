@@ -69,10 +69,6 @@ in
       "8080:8080"
     ];
 
-    # Load OMDB_API_KEY=your_key from sops
-    environmentFiles = [
-      config.sops.secrets.omdb_env.path
-    ];
 
     environment = {
       ARM_UID = "1001";
