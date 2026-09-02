@@ -54,7 +54,6 @@
     ];
     extraOptions = [
       "--privileged"
-      "--restart=always"
     ];
   };
 
