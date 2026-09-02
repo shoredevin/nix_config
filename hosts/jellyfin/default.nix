@@ -80,7 +80,7 @@ systemd.services.arm = {
       pkgs.util-linux
       pkgs.curl
       pkgs.python3
-      pkgs-legacy.handbrake-cli
+      pkgs-legacy.handbrake
     ];
 
     serviceConfig = {
