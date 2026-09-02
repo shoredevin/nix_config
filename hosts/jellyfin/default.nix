@@ -70,25 +70,31 @@ isNormalUser = true;
       "--privileged"
     ];
   };
-
 systemd.services.arm = {
     description = "Automatic Ripping Machine";
     wantedBy = [ "multi-user.target" ];
 
+    # Add required binaries to PATH (NixOS places these in the service PATH automatically)
+    path = [
+      pkgs.makemkv
+      pkgs.util-linux
+      pkgs.curl
+      pkgs.python3
+      pkgs-legacy.handbrake-cli
+    ];
+
     serviceConfig = {
       User = "arm";
       Group = "arm";
+      WorkingDirectory = "/opt/arm"; # Adjust if ARM is installed elsewhere
 
-      # Load the OMDb key as an environment variable (e.g. OMDB_API_KEY=your_key)
+      # Point to your ARM entrypoint script or WSGI server launcher
+      ExecStart = "/opt/arm/venv/bin/python3 /opt/arm/arm/ripper/main.py"; 
 
-      # Ensure ARM has access to required binaries
-      Path = with pkgs; [
-        makemkv
-        util-linux # Provides umount and findmnt
-        curl
-	pkgs-legacy.handbrake
-      ];
+      Restart = "always";
+      RestartSec = "5s";
+
+      EnvironmentFile = config.sops.secrets.omdb_api_key.path;
     };
   };
-
 }
