@@ -5,9 +5,12 @@ let
   script = pkgs.writeShellApplication {
     name = "make-webapp";
     runtimeInputs = with pkgs; [
-      yad
+      yad libnotify
     ];
-    text = builtins.readFile ../../bin/make-webapp.sh;
+    text = ''
+      ${builtins.readFile ../../bin/lib/yad-ui.sh}
+      ${builtins.readFile ../../bin/make-webapp.sh}
+    '';
   };
 
   # 2. The desktop launcher definition
