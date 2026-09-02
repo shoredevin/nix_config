@@ -1,5 +1,13 @@
-{ config, pkgs, nixpkgs-legacy, ... }:
+{ config, pkgs, ... }:
 
+
+let
+  # Instantiate the legacy package set with system & unfree configs
+  pkgs-legacy = import inputs.nixpkgs-legacy {
+    system = pkgs.stdenv.hostPlatform.system;
+    config.allowUnfree = true;
+  };
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -78,10 +86,8 @@ systemd.services.arm = {
         makemkv
         util-linux # Provides umount and findmnt
         curl
+	pkgs-legacy.handbrake-cli
       ];
-		PATH = with nixpkgs-legacy; [
-			handbrake
-		];
     };
   };
 
