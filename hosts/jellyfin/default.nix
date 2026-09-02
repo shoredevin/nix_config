@@ -83,4 +83,10 @@ in
       "--privileged"
     ];
   };
+# Automate directory creation and permissions for ARM
+  systemd.tmpfiles.rules = [
+    "d /home/arm 0775 arm arm - -"
+    "Z /home/arm 0775 arm arm - -"
+  ];
+
 }
