@@ -18,19 +18,25 @@ in
     operation = "switch";
   };
 
-  # Host arm user and group set to 1000 to match container defaults
+# Enforce exact numeric UID/GID matching ARM container expectations
   users.groups.arm = {
     gid = 1000;
   };
 
   users.users.arm = {
-    isSystemUser = true;
+    isNormalUser = true; # Ensures NixOS respects explicit UID 1000
     uid = 1000;
     group = "arm";
     extraGroups = [ "cdrom" ];
     home = "/home/arm";
     createHome = true;
   };
+
+  # Enforce numeric 1000:1000 explicitly in tmpfiles rules
+  systemd.tmpfiles.rules = [
+    "d /home/arm 0775 1000 1000 - -"
+    "z /home/arm 0775 1000 1000 - -"
+  ];
 
   # Services & Firewall
   services.jellyfin.enable = true;
@@ -83,10 +89,4 @@ in
       "--privileged"
     ];
   };
-# Automate directory creation and permissions for ARM
-systemd.tmpfiles.rules = [
-    "d /home/arm 0775 arm arm - -"
-    "z /home/arm 0775 arm arm - -"
-  ];
-
 }
