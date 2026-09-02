@@ -41,6 +41,7 @@
     environment = {
       ARM_UID = "1000"; # Adjust to match host user ID if needed
       ARM_GID = "1000"; # Adjust to match host group ID if needed
+	  WEB_SERVER_IP = "0.0.0.0"; # <-- Add this line
     };
     volumes = [
       "/home/arm:/home/arm"
