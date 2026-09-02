@@ -9,6 +9,11 @@
         ../../users/senna/default.nix
     ];
 
+  modules.auto-update = {
+    enable = true;
+    operation = "boot";
+  };
+
     boot.blacklistedKernelModules = [ "raydium_i2c_ts" ];
 
     boot.extraModulePackages = [ config.boot.kernelPackages.acpi_call ];

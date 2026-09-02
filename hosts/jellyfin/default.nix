@@ -7,6 +7,11 @@
 	../../modules/core/auto-update.nix
   ];
 
+  modules.auto-update = {
+	enable = true;
+	operation - "switch";
+  };
+
   services.jellyfin.enable = true;
   networking.firewall.allowedTCPPorts = [ 8096 8920 47990 ];
   services.sunshine = {
@@ -19,6 +24,7 @@
   environment.systemPackages = with pkgs; [
 	btop
 	hello
+	cowsay
   ];
 
 }
