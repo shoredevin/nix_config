@@ -7,6 +7,10 @@
 	../../modules/core/auto-update.nix
   ];
 
+  modules.auto-update = {
+    enable = true;
+    operation = "boot";
+  };
 
   environment.systemPackages = with pkgs; [
     

@@ -8,4 +8,9 @@
         ../../users/miya/default.nix
         ../../users/senna/default.nix
     ];
+
+	modules.auto-update = {
+      enable = true;
+      operation = "boot";
+    };	
 }
