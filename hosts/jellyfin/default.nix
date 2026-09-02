@@ -1,61 +1,17 @@
-{ config, pkgs, inputs, ... }:
-
-let
-  pkgs-legacy = import inputs.nixpkgs-legacy {
-    system = pkgs.stdenv.hostPlatform.system;
-    config.allowUnfree = true;
-  };
-in
-{
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/core/desktop.nix
-    ../../modules/core/auto-update.nix
-  ];
-
-  modules.auto-update = {
-    enable = true;
-    operation = "switch";
-  };
-
-  # 1. Host user and group for file permissions
+# Set host arm user UID/GID to 1000 to match ARM container default
   users.groups.arm = {
-    gid = 1001; # Explicit GID matching container
+    gid = 1000;
   };
 
   users.users.arm = {
     isSystemUser = true;
-    uid = 1001; # Explicit UID matching container
+    uid = 1000;
     group = "arm";
     extraGroups = [ "cdrom" ];
     home = "/home/arm";
     createHome = true;
   };
 
-  # Allow docker users to pass unfree dependencies if needed
-  nixpkgs.config.allowUnfree = true;
-
-  # Services & Firewall
-  services.jellyfin.enable = true;
-  networking.firewall.allowedTCPPorts = [ 8080 8096 8920 47990 ];
-
-  services.sunshine = {
-    enable = true;
-    autoStart = true;
-    capSysAdmin = true;
-    openFirewall = true;
-  };
-
-  environment.systemPackages = with pkgs; [
-    hello
-    cowsay
-  ];
-
-  # 2. Docker & OCI Container Management
-  virtualisation.docker.enable = true;
-
- 
-  virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers.arm-rippers = {
     image = "automaticrippingmachine/automatic-ripping-machine:latest";
     autoStart = true;
@@ -64,11 +20,11 @@ in
       "8080:8080"
     ];
 
-
     environment = {
-      ARM_UID = "1001";
-      ARM_GID = "1001";
+      ARM_UID = "1000";
+      ARM_GID = "1000";
       WEB_SERVER_IP = "0.0.0.0";
+      WEB_SERVER_PORT = "8080";
     };
 
     volumes = [
@@ -87,4 +43,3 @@ in
       "--privileged"
     ];
   };
-}
