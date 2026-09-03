@@ -22,8 +22,16 @@ in {
         docker-compose
         postman
         androidStudioPackages.stable
-		sops
-		age
+        sops
+        age
+
+        neovim
+        ripgrep
+        fd
+        gcc
+        unzip
+        gnumake
+        tree-sitter
       ];
       
       extraGroups = [ "docker" ];
@@ -33,7 +41,24 @@ in {
       SOPS_AGE_KEY_FILE = "$HOME/.config/sops/age/keys.txt";
     };
 
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+
+      autoPrune = {
+        enable = true;
+        dates = "weekly";
+        flags = [ "--all" "--volumes" ];
+      };
+
+      daemon.settings = {
+        "builder" = {
+          "gc" = {
+            "enabled" = true;
+            "defaultKeepStorage" = "20GB";
+          };
+        };
+      };
+    };
     
     # services.postgresql = {
     #   enable = true;
