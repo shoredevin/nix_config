@@ -47,6 +47,7 @@
         livingroom = mkHost "livingroom" [ ];
         jellyfin   = mkHost "jellyfin" [ ];
 		poo        = mkHost "poo" [ ];
+		nixos-installer = mkHost "nixos-installer" [ ];
       };  
     };  
 }
