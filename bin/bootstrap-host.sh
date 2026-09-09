@@ -72,6 +72,7 @@ fi
 
 # 3. Fetch hardware configuration
 echo -e "\n==> [2/6] Fetching hardware-configuration.nix..."
+ssh "${TARGET_USER}@${HOST_IP}"  "sudo nixos-generate-config --dir /etc/nixos"
 scp "${TARGET_USER}@${HOST_IP}:/etc/nixos/hardware-configuration.nix" "${HOST_DIR}/hardware-configuration.nix"
 
 # 4. Extract Age Key from target host
