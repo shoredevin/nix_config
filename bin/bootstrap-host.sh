@@ -103,9 +103,8 @@ fi
 # 7. Deploy via nixos-rebuild
 echo -e "\n==> [6/6] Building and deploying NixOS configuration to ${HOST_NAME}..."
 # 1. Build and copy the system closure directly to /mnt on the installer
-nix copy \
-  --to "ssh-ng://${TARGET_USER}@${HOST_IP}?remote-store=local?root=/mnt&require-sigs=false" \
-  ".#nixosConfigurations.${HOST_NAME}.config.system.build.toplevel"
+ssh "${TARGET_USER}@${HOST_IP}" \
+  "sudo nixos-install --system /mnt/nix/store/*-nixos-system-* --no-channel-copy --no-root-passwd"
 
 # 2. Run nixos-install on the target installer using the pushed store path
 ssh "${TARGET_USER}@${HOST_IP}" "sudo nixos-install --system /mnt/nix/store/*-nixos-system-* --no-root-passwd"
