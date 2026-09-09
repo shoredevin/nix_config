@@ -39,6 +39,17 @@
       fsType = "overlay";
     };
 
+  fileSystems."/mnt" =
+    { device = "/dev/disk/by-uuid/79446bd5-8148-4975-b831-1815db420a4d";
+      fsType = "ext4";
+    };
+
+  fileSystems."/mnt/boot" =
+    { device = "/dev/disk/by-uuid/E249-5B6D";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
+
   swapDevices = [ ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
