@@ -8,13 +8,17 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-	sops-nix = {
+	  sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+        url = "github:nix-community/disko";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-legacy, home-manager, sops-nix } @inputs:
+  outputs = { self, nixpkgs, nixpkgs-legacy, home-manager, sops-nix, disko } @inputs:
     let
       system = "x86_64-linux";
 
@@ -22,13 +26,14 @@
         ./modules/core/common.nix
         ./modules/core/boot.nix
         ./modules/apps/firefox.nix
-	    ./users/dshore/default.nix
+	      ./users/dshore/default.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-		  home-manager.backupFileExtension = "backup";
+		      home-manager.backupFileExtension = "backup";
         }
-		sops-nix.nixosModules.sops
+		    sops-nix.nixosModules.sops
+        disko.nixosModules.disko
       ];
       
       mkHost = hostName: extraModules: nixpkgs.lib.nixosSystem {
@@ -41,13 +46,13 @@
       };
     in {
       nixosConfigurations = {
-        office     = mkHost "office" [ ];
-        thinkpad   = mkHost "thinkpad" [ ];
-        thunkpad   = mkHost "thunkpad" [ ];
-        livingroom = mkHost "livingroom" [ ];
-        jellyfin   = mkHost "jellyfin" [ ];
-		poo        = mkHost "poo" [ ];
-		nixos-installer = mkHost "nixos-installer" [ ];
+        office           = mkHost "office" [ ];
+        thinkpad         = mkHost "thinkpad" [ ];
+        thunkpad         = mkHost "thunkpad" [ ];
+        livingroom       = mkHost "livingroom" [ ];
+        jellyfin         = mkHost "jellyfin" [ ];
+		    poo              = mkHost "poo" [ ];
+	    	nixos-installer  = mkHost "nixos-installer" [ ];
       };  
     };  
 }

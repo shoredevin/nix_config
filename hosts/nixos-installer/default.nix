@@ -3,8 +3,9 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./disko.nix`
     ../../modules/core/desktop.nix
-	../../modules/core/auto-update.nix
+	  ../../modules/core/auto-update.nix
   ];
 
   modules.auto-update = {
