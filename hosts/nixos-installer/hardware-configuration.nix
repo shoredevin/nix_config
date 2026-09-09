@@ -40,12 +40,12 @@
     };
 
   fileSystems."/mnt" =
-    { device = "/dev/disk/by-uuid/79446bd5-8148-4975-b831-1815db420a4d";
+    { device = "/dev/disk/by-uuid/589f9bbd-c256-4d1e-a45d-8e9af0941162";
       fsType = "ext4";
     };
 
   fileSystems."/mnt/boot" =
-    { device = "/dev/disk/by-uuid/E249-5B6D";
+    { device = "/dev/disk/by-uuid/31BB-DD68";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
     };
