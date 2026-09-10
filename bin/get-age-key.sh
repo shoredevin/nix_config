@@ -42,7 +42,7 @@ sops updatekeys secrets/secrets.yaml
 echo -e "\n==> Staging files and committing to Git..."
 git add "${HOST_DIR}" .sops.yaml secrets/
 if ! git diff --cached --quiet; then
-    git commit -m "chore(${HOST_NAME}): update sops age key for deployment"
+    git commit
     git push origin "${BRANCH}"
 else
     echo "No changes detected in git workspace. Skipping commit/push."
