@@ -6,8 +6,8 @@ WORK_DIR=$(mktemp -d)
 
 # Configuration values
 INSTALL_USER="root"
-HOST_NAME="poo"
-HOST_IP="192.168.50.91"
+HOST_NAME=""
+HOST_IP=""
 BRANCH="main"
 HOST_DIR="./hosts/${HOST_NAME}"
 
