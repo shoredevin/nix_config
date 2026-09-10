@@ -41,17 +41,17 @@ while getopts "h:i:u:b:?" opt; do
   esac
 done
 
-echo "========================================="
-echo " Bootstrapping Host: ${HOST_NAME} (${HOST_IP})"
-echo " Install User:      ${INSTALL_USER}"
-echo " Host Directory:    ${HOST_DIR}"
-echo "========================================="
-
 # Validate required arguments
 if [[ -z "${HOST_NAME}" || -z "${HOST_IP}" ]]; then
   echo "Error: Host name (-h) and IP address (-i) are required." >&2
   usage
 fi
+
+echo "========================================="
+echo " Bootstrapping Host: ${HOST_NAME} (${HOST_IP})"
+echo " Install User:      ${INSTALL_USER}"
+echo " Host Directory:    ${HOST_DIR}"
+echo "========================================="
 
 # Generate temporary SSH host keys inside the workspace
 mkdir -p "$WORK_DIR/host-keys" "$WORK_DIR/extra-files/etc/ssh"
