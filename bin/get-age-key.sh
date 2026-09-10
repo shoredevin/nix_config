@@ -40,9 +40,9 @@ sops updatekeys secrets/secrets.yaml
 
 # Stage and Commit Git changes
 echo -e "\n==> Staging files and committing to Git..."
-git add "${HOST_DIR}" .
 mkdir -p ./hosts/$HOST_NAME
 echo "{ ... }: { }" > ./hosts/$HOST_NAME/hardware-configuration.nix
+git add "${HOST_DIR}" .
 if ! git diff --cached --quiet; then
     git commit
     git push origin "${BRANCH}"
