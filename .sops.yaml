@@ -6,7 +6,7 @@ keys:
    - &host_thinkpad age1qnnnvtc99g0nrg7tg9erz5wr896ucwdrgant4u8rtexa34r58d5qkx06pn
    - &host_poo age1xcpeg7ecjy4h6zh2fusrcytkruf7n6yv68jx847ns8t4ma9dzpas4pasdq
    - &host_jellyfin age1p2svut6crx9ehm9s0xsywdd5vcm86fsz97c9kgrz52zc777u2v6qatnjyr
-   - &host_nixos-installer age1ncdcvlfv30j8wt9ywu7rsfdcxqg3fk77tsyrvk2zp7fgxjfuec6qg45f78
+   - &host_nixos-installer age1artsd8e2lxa8jz934efsjq0t9pn7aqw0qmrvhmh5ga7t5wh5lsyqxayzmn
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
