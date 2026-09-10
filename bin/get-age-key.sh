@@ -77,10 +77,19 @@ read -rp "Press [ENTER] once .sops.yaml has been updated to continue..."
 echo -e "\n==> Updating SOPS secrets..."
 sops updatekeys secrets/secrets.yaml
 
+# Setting up host directory and files (if they don't exist)
+if [[ -d $HOST_DIR ]]; then
+    echo "Host directory ${HOST_DIR} already exists. Skipping creation."
+else
+    echo "Creating host directory ${HOST_DIR}..."
+    mkdir -p $HOST_DIR
+    cp ./hosts/example.nix $HOST_DIR/default.nix
+    echo "{ ... }: { }" > $HOST_DIR/hardware-configuration.nix
+fi
+
+
 # Stage and Commit Git changes
 echo -e "\n==> Staging files and committing to Git..."
-mkdir -p ./hosts/$HOST_NAME
-echo "{ ... }: { }" > ./hosts/$HOST_NAME/hardware-configuration.nix
 git add "${HOST_DIR}" .
 if ! git diff --cached --quiet; then
     git commit
