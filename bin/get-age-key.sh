@@ -9,7 +9,6 @@ INSTALL_USER="root"
 HOST_NAME=""
 HOST_IP=""
 BRANCH="main"
-HOST_DIR="./hosts/${HOST_NAME}"
 
 # Trapped cleanup ensures deletion on script exit/failure
 trap 'rm -rf "${WORK_DIR:-}"' EXIT
@@ -40,6 +39,8 @@ while getopts "h:i:u:b:?" opt; do
     ?) usage ;;
   esac
 done
+
+HOST_DIR="./hosts/${HOST_NAME}"
 
 # Validate required arguments
 if [[ -z "${HOST_NAME}" || -z "${HOST_IP}" ]]; then
