@@ -7,7 +7,7 @@ WORK_DIR=$(mktemp -d)
 # Configuration values
 INSTALL_USER="root"
 HOST_NAME="nixos-installer"
-HOST_IP="192.168.122.148"
+HOST_IP="192.168.50.91"
 BRANCH="main"
 HOST_DIR="./hosts/${HOST_NAME}"
 

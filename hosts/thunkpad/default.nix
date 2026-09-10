@@ -6,6 +6,7 @@
 	../../modules/core/desktop.nix
 	../../modules/apps/dev.nix
 	../../modules/apps/sops-workstation.nix
+	../../modules/apps/vm.nix
   ];
 
   modules.dev.enable = true;

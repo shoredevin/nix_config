@@ -4,7 +4,7 @@ keys:
    - &host_thunkpad age10c6n77a0tml6yl8pmdtfyadx0pp8luqr9rxwp5c9na90mr6r3atsa7pw6t
    - &host_livingroom age10s2wu45f3au5yx4g5c999l68au3k2h5u3an5z8qm2qdz0aegeukq8l0602
    - &host_thinkpad age1qnnnvtc99g0nrg7tg9erz5wr896ucwdrgant4u8rtexa34r58d5qkx06pn
-   - &host_poo age1xcpeg7ecjy4h6zh2fusrcytkruf7n6yv68jx847ns8t4ma9dzpas4pasdq
+   - &host_poo age16q2urvfe2pnyag4wx2dlpyn9y9fxkkkhpuvckcurpmtukn26tv9suykvy9
    - &host_jellyfin age1p2svut6crx9ehm9s0xsywdd5vcm86fsz97c9kgrz52zc777u2v6qatnjyr
    - &host_nixos-installer age1artsd8e2lxa8jz934efsjq0t9pn7aqw0qmrvhmh5ga7t5wh5lsyqxayzmn
 creation_rules:
