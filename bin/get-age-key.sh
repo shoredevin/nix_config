@@ -14,6 +14,45 @@ HOST_DIR="./hosts/${HOST_NAME}"
 # Trapped cleanup ensures deletion on script exit/failure
 trap 'rm -rf "${WORK_DIR:-}"' EXIT
 
+
+usage() {
+  cat <<EOF
+Usage: $(basename "$0") -h <hostname> -i <ip_address> [-u <user>] [-b <branch>]
+
+Bootstraps a new NixOS machine into the local nix_config flake.
+
+Options:
+  -h  Host name (e.g., thunkpad, office, livingroom) [Required]
+  -i  Host IP address or SSH reachable address [Required]
+  -u  SSH user on target host (default: ${INSTALL_USER})
+  -b  Git branch to push to (default: ${BRANCH})
+  -?  Show this help message
+EOF
+  exit 1
+}
+
+while getopts "h:i:u:b:?" opt; do
+  case "$opt" in
+    h) HOST_NAME="$OPTARG" ;;
+    i) HOST_IP="$OPTARG" ;;
+    u) INSTALL_USER="$OPTARG" ;;
+    b) BRANCH="$OPTARG" ;;
+    ?) usage ;;
+  esac
+done
+
+echo "========================================="
+echo " Bootstrapping Host: ${HOST_NAME} (${HOST_IP})"
+echo " Install User:      ${INSTALL_USER}"
+echo " Host Directory:    ${HOST_DIR}"
+echo "========================================="
+
+# Validate required arguments
+if [[ -z "${HOST_NAME}" || -z "${HOST_IP}" ]]; then
+  echo "Error: Host name (-h) and IP address (-i) are required." >&2
+  usage
+fi
+
 # Generate temporary SSH host keys inside the workspace
 mkdir -p "$WORK_DIR/host-keys" "$WORK_DIR/extra-files/etc/ssh"
 ssh-keygen -q -t ed25519 -N "" -f "$WORK_DIR/host-keys/ssh_host_ed25519_key"
@@ -49,6 +88,8 @@ if ! git diff --cached --quiet; then
 else
     echo "No changes detected in git workspace. Skipping commit/push."
 fi
+
+exit 1
 
 # Execute nix-anywhere
 echo -e "\n==> Starting nixos-anywhere deployment..."
