@@ -1,8 +1,13 @@
 { config, pkgs, lib, ... }:
 
 {	
+  sops.secrets."dshore-password" = {
+    neededForUsers = true; # Critical: makes the secret available during user creation on boot
+  };
+
   users.users.dshore = {
     isNormalUser = true;
+    hashedPasswordFile = config.sops.secrets."dshore-password".path;
     description = "Devin Shore";
     extraGroups = [ 
       "networkmanager" 
