@@ -49,9 +49,9 @@ else
 fi
 
 # Execute nix-anywhere
-echo -e "\n==> Starting nix-anywhere deployment..."
-nix run github:nix-community/nix-anywhere -- \
+echo -e "\n==> Starting nixos-anywhere deployment..."
+nix run github:nix-community/nixos-anywhere -- \
   --extra-files "$WORK_DIR/extra-files" \
-  --copy-hardware-config "${HOST_DIR}/hardware-configuration.nix" \
+  --generate-hardware-config nixos-generate-config ./hosts/nixos-installer/hardware-configuration.nix \
   --flake ".#${HOST_NAME}" \
   "${INSTALL_USER}@${HOST_IP}"
