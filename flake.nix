@@ -52,7 +52,7 @@
         livingroom       = mkHost "livingroom" [ ];
         jellyfin         = mkHost "jellyfin" [ ];
 		poo              = mkHost "poo" [ ];
-	    vm               = mkHost "vm" [ diskDevice = "/dev/vda" ];
+	    vm               = mkHost { diskDevice = "/dev/vda" };
       };  
     };  
 }
