@@ -98,7 +98,7 @@ if [[ -d $HOST_DIR ]]; then
 else
   # echo "Creating host directory ${HOST_DIR}..."
   mkdir -p $HOST_DIR
-  # cp ./hosts/example.nix $HOST_DIR/default.nix
+  cp ./hosts/example.nix $HOST_DIR/default.nix
   echo "{ ... }: { }" >$HOST_DIR/hardware-configuration.nix
 fi
 
