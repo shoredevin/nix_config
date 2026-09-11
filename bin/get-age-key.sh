@@ -74,10 +74,14 @@ echo "------------------------------------------------------------------"
 # read -rp "Press [ENTER] once .sops.yaml has been updated to continue..."
 echo "adding age key to .sops.yaml"
 
-# 1. Update if anchor exists, OR append if missing
+# Update the anchored all_keys list in .sops.yaml without duplicating keys.
+# If the same host already has an entry, replace it; if the same age key already
+# exists, replace it as well while preserving the rest of the YAML file.
 HOST_NAME="$HOST_NAME" AGE_KEY="$AGE_KEY" nix run nixpkgs#yq-go -- -i '
-  (.keys[] | select(anchor == "all_keys")) |= (
-    . + ([env(AGE_KEY)] - .)
+  .keys[0] |= (
+    map(select(
+      (tostring | (contains(env(AGE_KEY)) | not) and (test(".* # " + env(HOST_NAME) + "$") | not))
+    )) + [ (env(AGE_KEY) + " # " + env(HOST_NAME)) ]
   )
 ' .sops.yaml
 
@@ -104,6 +108,10 @@ if ! git diff --cached --quiet; then
 else
   echo "No changes detected in git workspace. Skipping commit/push."
 fi
+
+echo "exiting early for testing purposes"
+
+exit 1
 
 # Execute nix-anywhere
 echo -e "\n==> Starting nixos-anywhere deployment..."
