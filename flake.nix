@@ -26,13 +26,13 @@
         ./modules/core/common.nix
         ./modules/core/boot.nix
         ./modules/apps/firefox.nix
-	      ./users/dshore/default.nix
+		./users/dshore/default.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 		      home-manager.backupFileExtension = "backup";
         }
-		    sops-nix.nixosModules.sops
+		sops-nix.nixosModules.sops
         disko.nixosModules.disko
       ];
       
@@ -51,8 +51,8 @@
         thunkpad         = mkHost "thunkpad" [ ];
         livingroom       = mkHost "livingroom" [ ];
         jellyfin         = mkHost "jellyfin" [ ];
-		    poo              = mkHost "poo" [ ];
-	    	nixos-installer  = mkHost "nixos-installer" [ ];
+		poo              = mkHost "poo" [ ];
+	    vm               = mkHost "vm" [ ];
       };  
     };  
 }
