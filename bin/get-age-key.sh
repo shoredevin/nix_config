@@ -13,7 +13,6 @@ BRANCH="main"
 # Trapped cleanup ensures deletion on script exit/failure
 trap 'rm -rf "${WORK_DIR:-}"' EXIT
 
-
 usage() {
   cat <<EOF
 Usage: $(basename "$0") -h <hostname> -i <ip_address> [-u <user>] [-b <branch>]
@@ -32,11 +31,11 @@ EOF
 
 while getopts "h:i:u:b:?" opt; do
   case "$opt" in
-    h) HOST_NAME="$OPTARG" ;;
-    i) HOST_IP="$OPTARG" ;;
-    u) INSTALL_USER="$OPTARG" ;;
-    b) BRANCH="$OPTARG" ;;
-    ?) usage ;;
+  h) HOST_NAME="$OPTARG" ;;
+  i) HOST_IP="$OPTARG" ;;
+  u) INSTALL_USER="$OPTARG" ;;
+  b) BRANCH="$OPTARG" ;;
+  ?) usage ;;
   esac
 done
 
@@ -71,8 +70,16 @@ echo "------------------------------------------------------------------"
 echo "Generated Age Key for ${HOST_NAME}:"
 echo "  ${AGE_KEY}"
 echo "------------------------------------------------------------------"
-echo "Action Required: Add the Age key above to .sops.yaml now."
-read -rp "Press [ENTER] once .sops.yaml has been updated to continue..."
+# echo "Action Required: Add the Age key above to .sops.yaml now."
+# read -rp "Press [ENTER] once .sops.yaml has been updated to continue..."
+echo "adding age key to .sops.yaml"
+
+# 1. Append the key string and assign the anchor tag (e.g. &host_default)
+nix run nixpkgs#yq-go -- -i '.keys += [strenv(AGE_KEY)] | .keys[-1] anchor = ("host_" + env(HOST_NAME))' ./test.yaml
+
+# 2. Append an alias pointing back to *host_default
+nix run nixpkgs#yq-go -- -i '.creation_rules[].key_groups[].age += [""] | .creation_rules[].key_groups[].age[-1] alias = ("host_" + env(HOST_NAME))' ./test.yaml
+
 
 # Update SOPS secrets
 echo -e "\n==> Updating SOPS secrets..."
@@ -80,23 +87,22 @@ sops updatekeys secrets/secrets.yaml
 
 # Setting up host directory and files (if they don't exist)
 if [[ -d $HOST_DIR ]]; then
-    echo "Host directory ${HOST_DIR} already exists. Skipping creation."
+  echo "Host directory ${HOST_DIR} already exists. Skipping creation."
 else
-    echo "Creating host directory ${HOST_DIR}..."
-    mkdir -p $HOST_DIR
-    cp ./hosts/example.nix $HOST_DIR/default.nix
-    echo "{ ... }: { }" > $HOST_DIR/hardware-configuration.nix
+  echo "Creating host directory ${HOST_DIR}..."
+  mkdir -p $HOST_DIR
+  cp ./hosts/example.nix $HOST_DIR/default.nix
+  echo "{ ... }: { }" >$HOST_DIR/hardware-configuration.nix
 fi
-
 
 # Stage and Commit Git changes
 echo -e "\n==> Staging files and committing to Git..."
 git add "${HOST_DIR}" .
 if ! git diff --cached --quiet; then
-    git commit
-    git push origin "${BRANCH}"
+  git commit
+  git push origin "${BRANCH}"
 else
-    echo "No changes detected in git workspace. Skipping commit/push."
+  echo "No changes detected in git workspace. Skipping commit/push."
 fi
 
 exit 1
