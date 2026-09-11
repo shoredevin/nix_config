@@ -74,11 +74,13 @@ echo "------------------------------------------------------------------"
 # read -rp "Press [ENTER] once .sops.yaml has been updated to continue..."
 echo "adding age key to .sops.yaml"
 
-# 1. Append the key string and assign the anchor tag (e.g. &host_default)
-nix run nixpkgs#yq-go -- -i '.keys += [strenv(AGE_KEY)] | .keys[-1] anchor = ("host_" + env(HOST_NAME))' ../.sops.yaml
+# 1. Append the key string and assign the anchor tag (&host_myhost)
+HOST_NAME="$HOST_NAME" AGE_KEY="$AGE_KEY" nix run nixpkgs#yq-go -- -i \
+  '.keys += [env(AGE_KEY)] | .keys[-1] anchor = ("host_" + env(HOST_NAME))' .sops.yaml
 
-# 2. Append an alias pointing back to *host_default
-nix run nixpkgs#yq-go -- -i '.creation_rules[].key_groups[].age += [""] | .creation_rules[].key_groups[].age[-1] alias = ("host_" + env(HOST_NAME))' ../.sops.yaml
+# 2. Append the alias pointing back to *host_myhost
+HOST_NAME="$HOST_NAME" nix run nixpkgs#yq-go -- -i \
+  '.creation_rules[].key_groups[].age += [""] | .creation_rules[].key_groups[].age[-1] alias = ("host_" + env(HOST_NAME))' .sops.yaml
 
 
 # Update SOPS secrets
