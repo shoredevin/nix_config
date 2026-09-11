@@ -116,6 +116,6 @@ fi
 echo -e "\n==> Starting nixos-anywhere deployment..."
 nix run github:nix-community/nixos-anywhere -- \
   --extra-files "$WORK_DIR/extra-files" \
-  --generate-hardware-config nixos-generate-config ./hosts/nixos-installer/hardware-configuration.nix \
+  --generate-hardware-config nixos-generate-config ./hosts/${HOST_NAME}/hardware-configuration.nix \
   --flake ".#${HOST_NAME}" \
   "${INSTALL_USER}@${HOST_IP}"
