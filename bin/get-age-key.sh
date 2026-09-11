@@ -96,15 +96,15 @@ sops updatekeys secrets/secrets.yaml
 if [[ -d $HOST_DIR ]]; then
   echo "Host directory ${HOST_DIR} already exists. Skipping creation."
 else
-  echo "Creating host directory ${HOST_DIR}..."
+  # echo "Creating host directory ${HOST_DIR}..."
   mkdir -p $HOST_DIR
-  cp ./hosts/example.nix $HOST_DIR/default.nix
+  # cp ./hosts/example.nix $HOST_DIR/default.nix
   echo "{ ... }: { }" >$HOST_DIR/hardware-configuration.nix
 fi
 
 # Stage and Commit Git changes
 echo -e "\n==> Staging files and committing to Git..."
-git add "${HOST_DIR}" .
+git add .
 if ! git diff --cached --quiet; then
   git commit
   git push origin "${BRANCH}"
