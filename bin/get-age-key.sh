@@ -76,11 +76,8 @@ echo "adding age key to .sops.yaml"
 
 # 1. Update if anchor exists, OR append if missing
 HOST_NAME="$HOST_NAME" AGE_KEY="$AGE_KEY" nix run nixpkgs#yq-go -- -i '
-  with(
-    .keys[] | select(anchor == "all_hosts");
-    if (contains([env(AGE_KEY)]) | not) then
-      . += [env(AGE_KEY)] | .[-1] comment = env(HOST_NAME)
-    end
+  (.keys[] | select(anchor == "all_hosts")) |= (
+    . + ([env(AGE_KEY)] - .)
   )
 ' .sops.yaml
 

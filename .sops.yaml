@@ -6,9 +6,10 @@ keys:
     - age10s2wu45f3au5yx4g5c999l68au3k2h5u3an5z8qm2qdz0aegeukq8l0602 # livingroom
     - age1qnnnvtc99g0nrg7tg9erz5wr896ucwdrgant4u8rtexa34r58d5qkx06pn # thinkpad
     - age1p25g8lx02970qfh93m74f546dgu3ul4p2y5vfm5ft8rv8z5wle5q0kyq9n # poo
+    - age1yna25g2z0d3p0v8lg3j5nmvxgq0nwyu0lm3uvet2h86zm59pm52sq692sd
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
       - age:
-        - *user_dshore
+          - *user_dshore
       - age: *all_hosts
