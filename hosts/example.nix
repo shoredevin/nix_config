@@ -3,7 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-	../../modules/disko/default-efi.nix
+	../../modules/apps/disko/default-efi.nix
     ../../modules/core/desktop.nix
 	../../modules/core/auto-update.nix
   ];
