@@ -76,16 +76,12 @@ echo "adding age key to .sops.yaml"
 
 # 1. Update if anchor exists, OR append if missing
 HOST_NAME="$HOST_NAME" AGE_KEY="$AGE_KEY" nix run nixpkgs#yq-go -- -i '
-  with(.keys[]; select(anchor == ("host_" + env(HOST_NAME))) = env(AGE_KEY))
-  | select((.keys[] | select(anchor == ("host_" + env(HOST_NAME)))) | length == 0)
-    .keys += [env(AGE_KEY)] | .keys[-1] anchor = ("host_" + env(HOST_NAME))
-' .sops.yaml
-
-# 2. Append alias only if it does not already exist
-HOST_NAME="$HOST_NAME" nix run nixpkgs#yq-go -- -i '
-  select((.creation_rules[].key_groups[].age[] | select(alias == ("host_" + env(HOST_NAME)))) | length == 0)
-  | .creation_rules[].key_groups[].age += [""] 
-  | .creation_rules[].key_groups[].age[-1] alias = ("host_" + env(HOST_NAME))
+  with(
+    .keys[] | select(anchor == "all_hosts");
+    if (contains([env(AGE_KEY)]) | not) then
+      . += [env(AGE_KEY)] | .[-1] comment = env(HOST_NAME)
+    end
+  )
 ' .sops.yaml
 
 # Update SOPS secrets
