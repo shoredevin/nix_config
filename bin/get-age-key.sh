@@ -105,6 +105,9 @@ else
   echo "No changes detected in git workspace. Skipping commit/push."
 fi
 
+echo "exiting for testing, git should have committed and sops yaml updated"
+exit 1
+
 # Execute nix-anywhere
 echo -e "\n==> Starting nixos-anywhere deployment..."
 nix run github:nix-community/nixos-anywhere -- \
