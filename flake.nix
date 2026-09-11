@@ -36,7 +36,7 @@
         disko.nixosModules.disko
       ];
       
-      mkHost = hostName: diskDevice extraModules: nixpkgs.lib.nixosSystem {
+      mkHost = hostName: diskDevice: extraModules: nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
         modules = shared-modules ++ [
