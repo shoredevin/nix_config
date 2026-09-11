@@ -36,7 +36,7 @@
         disko.nixosModules.disko
       ];
       
-      mkHost = hostName: extraModules: nixpkgs.lib.nixosSystem {
+      mkHost = hostName: diskDevice extraModules: nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs; };
         modules = shared-modules ++ [
@@ -52,7 +52,7 @@
         livingroom       = mkHost "livingroom" [ ];
         jellyfin         = mkHost "jellyfin" [ ];
 		poo              = mkHost "poo" [ ];
-	    vm               = mkHost "vm" [ "test" ];
+	    vm               = mkHost "vm" "/dev/vda" [ ];
       };  
     };  
 }
