@@ -8,6 +8,7 @@ keys:
     - age1p25g8lx02970qfh93m74f546dgu3ul4p2y5vfm5ft8rv8z5wle5q0kyq9n # poo
     - age17eq78rv9z0j7v4w29ff7rdww5n9g65k4h5gu842jepndm2fh5upscq3jf4
     - age19mn5clx2kukvv39rz5y8shcxfya49xtq975sgky2aw78fmrap39s56wfvn
+    - age106ndqjq85x0zrnjrjzy88xamepxju2kq6jzxs79pkv5dekzqzd8sgpptr0
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
