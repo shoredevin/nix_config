@@ -38,7 +38,7 @@
       
       mkHost = hostName: diskDevice: extraModules: nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs diskDevice; };
         modules = shared-modules ++ [
           ./hosts/${hostName}/default.nix
           { networking.hostName = hostName; }
