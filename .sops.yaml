@@ -7,7 +7,7 @@ keys:
   - &host_poo age1p25g8lx02970qfh93m74f546dgu3ul4p2y5vfm5ft8rv8z5wle5q0kyq9n
   - &host_jellyfin age1p2svut6crx9ehm9s0xsywdd5vcm86fsz97c9kgrz52zc777u2v6qatnjyr
   - &host_nixos-installer age1artsd8e2lxa8jz934efsjq0t9pn7aqw0qmrvhmh5ga7t5wh5lsyqxayzmn
-  - &host_vm age17gktx2qqdzk3kapgd37za99tatm7t0tk2w2us47j4k5jkfmczq9s0k08hj
+  - &host_vm age1czm0cd5e8kkxash3ymk7d02p2pdqu4thumgtkn7hcdt8n7cts59sjlfvfj
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
@@ -20,6 +20,7 @@ creation_rules:
           - *host_poo
           - *host_jellyfin
           - *host_nixos-installer
+          - *host_vm
           - *host_vm
           - *host_vm
           - *host_vm
