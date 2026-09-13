@@ -30,13 +30,13 @@
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-		      home-manager.backupFileExtension = "backup";
+		  home-manager.backupFileExtension = "backup";
         }
 		sops-nix.nixosModules.sops
         disko.nixosModules.disko
       ];
       
-      mkHost = hostName: diskDevice: extraModules: nixpkgs.lib.nixosSystem {
+      mkHost = { hostName, diskDevice ? "/dev/sda", extraModules ? [ ] }: nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs diskDevice; };
         modules = shared-modules ++ [
@@ -46,13 +46,13 @@
       };
     in {
       nixosConfigurations = {
-        office           = mkHost "office" [ ];
-        thinkpad         = mkHost "thinkpad" [ ];
-        thunkpad         = mkHost "thunkpad" [ ];
-        livingroom       = mkHost "livingroom" [ ];
-        jellyfin         = mkHost "jellyfin" [ ];
-		poo              = mkHost "poo" [ ];
-	    vm               = mkHost "vm" "/dev/vda" [ ];
+        office           = mkHost { hostName = "office"; };
+        thinkpad         = mkHost { hostName = "thinkpad"; };
+        thunkpad         = mkHost { hostName = "thunkpad"; };
+        livingroom       = mkHost { hostName = "livingroom"; };
+        jellyfin         = mkHost { hostName = "jellyfin"; };
+		poo              = mkHost { hostName = "poo"; };
+	    vm               = mkHost { hostNme = "vm"; diskDevice = "/dev/vda"; };
       };  
     };  
 }
