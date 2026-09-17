@@ -8,7 +8,7 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-	  sops-nix = {
+    sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -26,13 +26,13 @@
         ./modules/core/common.nix
         ./modules/core/boot.nix
         ./modules/apps/firefox.nix
-		./users/dshore/default.nix
+	./users/dshore/default.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-		  home-manager.backupFileExtension = "backup";
+	  home-manager.backupFileExtension = "backup";
         }
-		sops-nix.nixosModules.sops
+	sops-nix.nixosModules.sops
         disko.nixosModules.disko
       ];
       
@@ -51,8 +51,8 @@
         thunkpad         = mkHost { hostName = "thunkpad"; };
         livingroom       = mkHost { hostName = "livingroom"; };
         jellyfin         = mkHost { hostName = "jellyfin"; };
-		poo              = mkHost { hostName = "poo"; };
-	    vm               = mkHost { hostNme = "vm"; diskDevice = "/dev/vda"; };
+	poo              = mkHost { hostName = "poo"; };
+        vm               = mkHost { hostNme = "vm"; diskDevice = "/dev/vda"; };
       };  
     };  
 }

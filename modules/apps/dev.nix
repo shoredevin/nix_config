@@ -59,6 +59,8 @@ in {
         };
       };
     };
+
+virtualisation.docker.enableOnBoot = false;
     
     # services.postgresql = {
     #   enable = true;
