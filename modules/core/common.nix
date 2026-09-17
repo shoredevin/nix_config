@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 let
   launchWebapp = pkgs.callPackage ../../pkgs/launch-webapp/default.nix { };
@@ -90,9 +90,11 @@ systemd.services.NetworkManager-wait-online.enable = false;
   };
 
   sops = {
+    package = inputs.sops-nix.packages.${pkgs.system}.sops-install-secrets;
+
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
-    
+
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   };
 
@@ -101,7 +103,7 @@ systemd.services.NetworkManager-wait-online.enable = false;
     owner = "dshore"; # Make sure this matches your local username
   };
   
-  fonts.packages = [ pkgs.nerd-fonts.droid-sans-mono ];
+  fonts.packages = [ pkgs.nerd-fonts.roboto-mono ];
 
   system.stateVersion = "25.05";
 }

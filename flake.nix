@@ -3,14 +3,14 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs-legacy.url = "github:nixos/nixpkgs/nixos-25.05";
+    nix-legacy.url = "github:NixOS/nixpkgs/nixos-26.05";
     home-manager = { 
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nix-legacy";
     };
     disko = {
         url = "github:nix-community/disko";
@@ -18,7 +18,7 @@
       };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-legacy, home-manager, sops-nix, disko } @inputs:
+  outputs = { self, nixpkgs, nix-legacy, home-manager, sops-nix, disko } @inputs:
     let
       system = "x86_64-linux";
 

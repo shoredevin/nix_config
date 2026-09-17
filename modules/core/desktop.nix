@@ -38,6 +38,6 @@
   services.flatpak.enable = true;
 
   environment.systemPackages = with pkgs; [
-    libreoffice-fresh # Or libreoffice-still
+    libreoffice
   ];
 }

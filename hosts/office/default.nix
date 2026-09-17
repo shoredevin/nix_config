@@ -15,9 +15,6 @@
   
   hardware.graphics = { 
 	  enable = true; 
-	  extraPackages = with pkgs; [
-	    intel-media-driver
-    ];
   };
 
   services.xserver.videoDrivers = ["nvidia"];
@@ -31,8 +28,14 @@
     package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
   };
 
+  boot.kernelParams = [
+    "iommu=pt"
+    "amd_iommu=off"
+  ];
+
   environment.systemPackages = with pkgs; [
     btop
   ];
+
 }
 	   
