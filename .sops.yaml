@@ -6,7 +6,7 @@ keys:
     - age10s2wu45f3au5yx4g5c999l68au3k2h5u3an5z8qm2qdz0aegeukq8l0602 # livingroom
     - age1qnnnvtc99g0nrg7tg9erz5wr896ucwdrgant4u8rtexa34r58d5qkx06pn # thinkpad
     - age1p25g8lx02970qfh93m74f546dgu3ul4p2y5vfm5ft8rv8z5wle5q0kyq9n # poo
-    - age1al9ndh36ccmt8eu6m2grk4ktztedhxl074ztd500kesu77nv6a5qe5xvht # jellfin'
+    - age10m6ze5yuertf2hjt6r6xpajw7mygh70nxn4tw6swpt0j666vlyuqgm8f6r # jellfin
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:
