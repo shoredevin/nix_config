@@ -8,6 +8,7 @@
 	../../modules/apps/gaming.nix
     ../../modules/apps/sops-workstation.nix
 	../../modules/apps/vm.nix
+	../../users/senna/default.nix
   ];
 
   modules.dev.enable = true;
@@ -26,7 +27,23 @@
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
+    # package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+  };
+
+environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+    XDG_SESSION_TYPE = "wayland";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    NIXOS_OZONE_WL = "1";
+    
+    # Software cursor fallback in case hardware cursor flickers or stays invisible
+    WLR_NO_HARDWARE_CURSORS = "1";
+HYPRCURSOR_ENABLED = "0";
+
+  # NVIDIA specific Wayland fixes
+  # GBM_BACKEND = "nvidia-drm";
+
   };
 
   boot.kernelParams = [

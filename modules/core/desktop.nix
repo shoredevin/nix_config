@@ -12,6 +12,11 @@
   services.displayManager.cosmic-greeter.enable = true;
   services.desktopManager.cosmic.enable = true;
 
+programs.hyprland = {
+  enable = true;
+  xwayland.enable = true;
+};
+
   # Audio & Printing
   security.rtkit.enable = true;
   services.pipewire = {
@@ -37,7 +42,13 @@
 
   services.flatpak.enable = true;
 
+programs.hyprlock.enable = true;
+
   environment.systemPackages = with pkgs; [
     libreoffice
+	kitty
+	rofi
+	quickshell
   ];
+
 }

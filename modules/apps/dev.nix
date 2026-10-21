@@ -1,7 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, inputs, lib, ... }:
 
 let
   cfg = config.modules.dev;
+
+  legacy-pkgs = import inputs.nix-legacy {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
 in {
   options.modules.dev = {
     enable = lib.mkEnableOption "Dev utils";
@@ -32,6 +37,8 @@ in {
         unzip
         gnumake
         tree-sitter
+		lmstudio
+    legacy-pkgs.opencode
       ];
       
       extraGroups = [ "docker" ];
