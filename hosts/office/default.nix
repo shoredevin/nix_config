@@ -53,6 +53,7 @@ HYPRCURSOR_ENABLED = "0";
 
   environment.systemPackages = with pkgs; [
     btop
+tailscale
   ];
 
 }

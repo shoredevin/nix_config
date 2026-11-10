@@ -38,7 +38,8 @@ in {
         gnumake
         tree-sitter
 		lmstudio
-    legacy-pkgs.opencode
+    	legacy-pkgs.opencode
+		nicotine-plus
       ];
       
       extraGroups = [ "docker" ];
@@ -82,8 +83,13 @@ virtualisation.docker.enableOnBoot = false;
 
     networking.firewall.allowedTCPPorts = [ 
       3000 
+	  2234
     ];
     
+	networking.firewall.allowedUDPPorts = [
+	  2234
+	];
+
     networking.extraHosts = ''
       127.0.0.1 tv.testinglocal.com
     '';

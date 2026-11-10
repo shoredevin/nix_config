@@ -46,14 +46,13 @@ str="nix run github:nix-community/nixos-anywhere --\
  --generate-hardware-config nixos-generate-config \
  ./hosts/nixos-installer/hardware-configuration.nix \
  --flake .#nixos-installer \
- --target-host ${HOST_NAME}t@${HOST_IP}"
+ --target-host ${HOST_NAME}@${HOST_IP}"
 
 
 echo "$str"
-exit 1
 
 nix run github:nix-community/nixos-anywhere -- \
   --generate-hardware-config nixos-generate-config \
   ./hosts/nixos-installer/hardware-configuration.nix \
   --flake .#nixos-installer \
-  --target-host root@192.168.122.245
+  --target-host root@${HOST_IP}

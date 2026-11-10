@@ -7,6 +7,7 @@
     ppsspp
     gopher64
     melonds
+    tailscale
   ];
 
   programs.steam = {
@@ -15,4 +16,10 @@
 	dedicatedServer.openFirewall = true;
 	localNetworkGameTransfers.openFirewall = true;
   };
+
+services.tailscale.enable = true;
+
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+  networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
+
 }
