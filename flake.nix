@@ -50,7 +50,7 @@
         thinkpad         = mkHost { hostName = "thinkpad"; };
         thunkpad         = mkHost { hostName = "thunkpad"; };
         livingroom       = mkHost { hostName = "livingroom"; };
-        jellyfin         = mkHost { hostName = "jellyfin"; };
+        jellyfin         = mkHost { hostName = "jellyfin"; diskDevice = "/dev/nvme0n1";  };
 	poo              = mkHost { hostName = "poo"; };
         vm               = mkHost { hostNme = "vm"; diskDevice = "/dev/vda"; };
       };  

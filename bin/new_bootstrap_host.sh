@@ -45,7 +45,7 @@ echo "========================================="
 str="nix run github:nix-community/nixos-anywhere --\
  --generate-hardware-config nixos-generate-config \
  ./hosts/nixos-installer/hardware-configuration.nix \
- --flake .#nixos-installer \
+ --flake .#${HOST_NAME} \
  --target-host ${HOST_NAME}@${HOST_IP}"
 
 
@@ -54,5 +54,5 @@ echo "$str"
 nix run github:nix-community/nixos-anywhere -- \
   --generate-hardware-config nixos-generate-config \
   ./hosts/nixos-installer/hardware-configuration.nix \
-  --flake .#nixos-installer \
+  --flake .#${HOST_NAME} \
   --target-host root@${HOST_IP}
