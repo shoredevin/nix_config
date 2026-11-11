@@ -35,8 +35,11 @@ in
 
   # Enforce numeric 1000:1000 explicitly in tmpfiles rules
   systemd.tmpfiles.rules = [
-    "d /home/arm 0775 1000 1000 - -"
-    "z /home/arm 0775 1000 1000 - -"
+	"d /home/arm 0775 1000 1000 - -"
+    "d /home/arm/config 0775 1000 1000 - -"
+    "d /home/arm/logs 0775 1000 1000 - -"
+    "d /home/arm/media 0775 1000 1000 - -"
+    "d /home/arm/Music 0775 1000 1000 - -"
   ];
 
   # Services & Firewall
