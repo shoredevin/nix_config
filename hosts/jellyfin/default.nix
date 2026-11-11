@@ -28,7 +28,7 @@ in
     isNormalUser = true; # Ensures NixOS respects explicit UID 1000
     uid = 1000;
     group = "arm";
-    extraGroups = [ "cdrom" ];
+    extraGroups = [ "cdrom" "docker" ];
     home = "/home/arm";
     createHome = true;
   };
