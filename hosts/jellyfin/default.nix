@@ -91,6 +91,7 @@ in
 
     extraOptions = [
       "--privileged"
+	  "--device=/dev/sr0:/dev/sr0:rwm"
     ];
   };
 
