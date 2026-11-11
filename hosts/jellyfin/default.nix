@@ -90,4 +90,9 @@ in
       "--privileged"
     ];
   };
+
+	networking.firewall.allowedTCPPorts = [ 
+		3000 
+      	2234
+    ]; 
 }
